@@ -1,0 +1,106 @@
+{
+
+    "column_mapping" : 
+    {
+      "column_1": {
+        "column_name": "id",
+        "Mapping_rule": {
+            "target_column": "id"
+        },
+        "columntype": "array"
+      },
+      "column_2": {
+        "column_name": "resourceType",
+        "Mapping_rule": {
+          "target_column": "resourceType"
+        },
+        "columntype": "array"
+      },
+      "column_3": {
+        "column_name": "versionId",
+        "Mapping_rule": {
+          "target_column": "meta_versionId"
+        },
+        "columntype": "array"
+      },
+      "column_4": {
+        "column_name": "PRACTITIONER_LAST_UPDATE_DATE",
+        "Mapping_rule": {
+            "target_column": "meta_lastUpdated"
+        },
+        "columntype": "array"
+      },
+      "column_5": {
+        "column_name": "GENDER",
+        "Mapping_rule": {
+          "target_column": "gender"
+        },
+        "columntype": "array"
+      },
+      "column_6": {
+        "column_name": "LAST_NAME",
+        "Mapping_rule": {
+          "target_column": "name_family"
+        },
+        "columntype": "array"
+      },
+      "column_7": {
+        "column_name": "NAME_SUFFIX",
+        "Mapping_rule": {
+          "target_column": "name_suffix"
+        },
+        "columntype": "array"
+      },
+      "column_8": {
+        "column_name": "NAME_PREFIX",
+        "Mapping_rule": {
+          "target_column": "name_prefix"
+        },
+        "columntype": "array"
+      },
+      "column_9": {
+        "column_name": "PROVIDER_TITLE",
+        "Mapping_rule": {
+          "target_column": "name_extension_valueString"
+        },
+        "columntype": "array"
+      },
+      "column_10": {
+        "column_name": "PROV_INTRNSHP_FCLTY_NM_prac",
+        "Mapping_rule": {
+          "source_column": "qualification_code_coding_code",
+          "match_value": "INTERN",
+          "target_column": "qualification_issuer_reference"
+        },
+        "columntype": "array"
+      },
+      "column_11": {
+        "column_name": "PROV_MED_SCHL_NM_prac",
+        "Mapping_rule": {
+          "source_column": "qualification_code_coding_code",
+          "match_value": "MEDSCHL",
+          "target_column": "qualification_issuer_reference"
+        },
+        "columntype": "array"
+      },
+      "column_12": {
+        "column_name": "PROV_RSDNCY_FCLTY_NM_prac",
+        "Mapping_rule": {
+          "source_column": "qualification_code_coding_code",
+          "match_value": "RESIDEN",
+          "target_column": "qualification_issuer_reference"
+        },
+        "columntype": "array"
+      },
+      "column_13": {
+        "column_name": "PROVIDER_MEDICAL_SCHOOL_YEAR",
+        "Mapping_rule": {
+          "source_column": "qualification_code_coding_code",
+          "match_value": "MEDSCHL",
+          "target_column": "qualification_period_end"
+        },
+        "columntype": "NONARRAY"
+      }
+    }
+}
+    

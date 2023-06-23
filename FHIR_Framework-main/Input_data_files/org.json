@@ -1,0 +1,132 @@
+{
+    "resourceType" : "Organization",
+    "id" : "361-6aa21a49-d261-4529-a874-81496b785499-ProviderOrganiz",
+    "meta" : {
+      "versionId" : "1",
+      "lastUpdated" : "2021-06-11T10:22:08.657-05:00",
+      "source" : "#iKiPeC77GpLd2zZN",
+      "profile" : [
+        "http://bpd.bcbs.com/StructureDefinition/bpd-organization-provider-query-quality"
+      ]
+    },
+    "text" : {
+      "status" : "extensions",
+      "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative</b></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource \"111-aabb-a203-BPDOrganizationProvider203-ProviderOrganiz\" Version \"1\" Updated \"2021-06-11 10:22:08-0500\" </p><p style=\"margin-bottom: 0px\">Information Source: #iKiPeC77GpLd2zZN!</p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-bpd-organization-provider-query-quality.html\">Retrieve Provider Quality Data for Directory - Organization - Provider</a></p></div><blockquote><p><b>BCBS Quality Recognition</b></p><p><b>value</b>: <a href=\"Organization-111-aabb-L201-BPDOrganizationLicensee201-Licensee.html\">Organization/111-aabb-L201-BPDOrganizationLicensee201-Licensee</a></p><p><b>value</b>: <a href=\"InsurancePlan-111-aabbccd-efg-i201-BPDInsurancePlan201-InsurancePlan.html\">InsurancePlan/111-aabbccd-efg-i201-BPDInsurancePlan201-InsurancePlan</a></p><p><b>value</b>: 2020-04-01 --&gt; 2021-07-01</p><p><b>value</b>: 01 <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> ([not stated]#01)</span></p><p><b>value</b>: 1 <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> ([not stated]#1)</span></p><p><b>value</b>: I <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> ([not stated]#I)</span></p></blockquote><p><b>identifier</b>: Provider number: 123GRP, National provider identifier: 2222233333, Provider Master Identifier: 5555555555</p><p><b>name</b>: Northlake Rehabilitation Center</p><p><b>telecom</b>: ph: 5554810111(WORK)</p><p><b>address</b>: 311 Oak Drive Chicago IL 60120 US (WORK)</p></div>"
+    },
+    "extension" : [
+      {
+        "extension" : [
+          {
+            "url" : "licensee",
+            "valueReference" : {
+              "reference" : "Organization/111-aabb-L201-BPDOrganizationLicensee201-Licensee"
+            }
+          },
+          {
+            "url" : "insurancePlan",
+            "valueReference" : {
+              "reference" : "InsurancePlan/111-aabbccd-efg-i201-BPDInsurancePlan201-InsurancePlan"
+            }
+          },
+          {
+            "url" : "recognitionPeriod",
+            "valuePeriod" : {
+              "start" : "2020-04-01",
+              "end" : "2021-07-01"
+            }
+          },
+          {
+            "url" : "recognizingEntity",
+            "valueCodeableConcept" : {
+              "coding" : [
+                {
+                  "code" : "01"
+                }
+              ]
+            }
+          },
+          {
+            "url" : "recognitionValue",
+            "valueCodeableConcept" : {
+              "coding" : [
+                {
+                  "code" : "1"
+                }
+              ]
+            }
+          },
+          {
+            "url" : "recognitionType",
+            "valueCodeableConcept" : {
+              "coding" : [
+                {
+                  "code" : "I"
+                }
+              ]
+            }
+          }
+        ],
+        "url" : "http://bpd.bcbs.com/StructureDefinition/qualityrecognition"
+      }
+    ],
+    "identifier" : [
+      {
+        "type" : {
+          "coding" : [
+            {
+              "system" : "http://terminology.hl7.org/CodeSystem/v2-0203",
+              "code" : "PRN",
+              "display" : "Provider number"
+            }
+          ]
+        },
+        "value" : "123GRP"
+      },
+      {
+        "type" : {
+          "coding" : [
+            {
+              "system" : "http://terminology.hl7.org/CodeSystem/v2-0203",
+              "code" : "NPI",
+              "display" : "National provider identifier"
+            }
+          ]
+        },
+        "value" : "2222233333"
+      },
+      {
+        "type" : {
+          "coding" : [
+            {
+              "system" : "http://bpd.bcbs.com/CodeSystem/BCBSIdentifierTypeCS",
+              "code" : "PRM",
+              "display" : "Provider Master Identifier"
+            }
+          ]
+        },
+        "value" : "5555555555"
+      }
+    ],
+    "name" : "Northlake Rehabilitation Center",
+    "telecom" : [
+      {
+        "system" : "phone",
+        "value" : "5554810111",
+        "use" : "work"
+      }
+    ],
+    "address" : [
+      {
+        "use" : "work",
+        "type" : "physical",
+        "line" : [
+          "311 Oak Drive"
+        ],
+        "city" : "Chicago",
+        "district" : "17031",
+        "state" : "IL",
+        "postalCode" : "60120",
+        "country" : "US"
+      }
+    ]
+  }

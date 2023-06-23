@@ -1,0 +1,232 @@
+import sys
+
+from pyspark import SparkContext
+from pyspark.sql import functions as F
+from pyspark.sql import types as pt
+from pyspark.sql.window import Window as w
+from awsglue.context import GlueContext
+from datetime import datetime, timedelta
+from awsglue.utils import getResolvedOptions
+from pyspark.sql import types as pt
+from pyspark.sql.functions import explode, explode_outer, col, when, split, element_at, to_date, lit, desc, dense_rank, \
+    concat_ws, collect_set, udf
+from pyspark.sql.types import *
+from pyspark.sql import DataFrame
+from pyspark.sql import Row
+from functools import reduce
+
+from pyspark.sql.utils import AnalysisException
+import logging
+import boto3
+
+        
+try:
+    args = getResolvedOptions(sys.argv, ['last_date'])
+    last_date = args['last_date']
+
+except:
+    print('last_date argument is missing')
+    last_date = None
+
+
+try:
+    args = getResolvedOptions(sys.argv, ['s3_input_path','s3_output_path', 'metadata_path', 'environment_path','JOB_NAME', 'environment', 'sns_arn'])
+    environment_path = args['environment_path']
+    s3_input_path = args['s3_input_path']
+    job_name = args['JOB_NAME']
+    environment = args['environment']
+    sns_arn = args['sns_arn']
+    job_run_id = args['JOB_RUN_ID']
+
+    sns_client = boto3.client('sns')
+
+    def union_all(*dfs):
+        return reduce(DataFrame.union, dfs)
+
+    def has_column(df, col):
+        try:
+            df[col]
+            return True
+        except AnalysisException:
+            return False
+
+    def col_check(df, col_name: str, col_rename: str):
+
+        if has_column(df, col_name):
+            final_df = df.withColumn(col_rename, col(col_name))
+        else:
+            # Adjust types according to your needs
+            final_df = df.withColumn(col_rename, lit(None).cast("string"))
+
+        return final_df 
+
+    @udf(returnType = pt.StringType())
+    def format_col(data):
+        return "~".join(s for s in data ).split("?^")
+
+
+    def get_last_date(spark):
+        try:
+            healthcare_service_data = args["metadata_path"]
+            metadata_df = spark.read.option("header", True).csv(healthcare_service_data)
+            metadata_df = metadata_df.where(metadata_df.job_name_met == 'healthcare_service')
+            last_date = metadata_df.select('last_date').agg({'last_date': 'max'}).collect()[0][0]
+        except Exception as e:
+            msg = 'Error reading metadata file or Metadata file has no data, check the metadata file'
+            raise Exception(msg).with_traceback(e.__traceback__)
+        return last_date
+
+    def current_run_date(current_pdate):
+        try:
+            sys_date=datetime.today()
+            print('System Date-',sys_date)
+            if current_pdate >= sys_date:
+                raise Exception(f'The current_pdate -{current_pdate} value is greater than or equal to system date hence Exiting....' )
+        except Exception as e: 
+                raise e
+        
+
+
+    # based on initial_update column logic needs to modify
+    def process_data(spark, last_date):
+        """[summary]
+
+        :param spark: [description]
+        :type spark: [type]
+        """
+        if last_date is not None:
+            last_date = last_date
+            print(f'last_date from workflow trigger-- {last_date}')
+        else:
+            last_date = get_last_date(spark)
+        # s3_input_path = f's3://{environment_path}/raw-zone/HealthcareService'
+        schema = StructType([StructField('category', ArrayType(StructType([StructField('coding', ArrayType(StructType([StructField('code', StringType(), True), StructField('display', StringType(), True), StructField('system', StringType(), True)]), True), True)]), True), True), StructField('id', StringType(), True), StructField('meta', StructType([StructField('lastUpdated', StringType(), True), StructField('profile', ArrayType(StringType(), True), True), StructField('source', StringType(), True), StructField('versionId', StringType(), True)]), True), StructField('resourceType', StringType(), True), StructField('specialty', ArrayType(StructType([StructField('coding', ArrayType(StructType([StructField('code', StringType(), True), StructField('display', StringType(), True), StructField('system', StringType(), True)]), True), True)]), True), True), StructField('text', StructType([StructField('div', StringType(), True), StructField('status', StringType(), True)]), True), StructField('type', ArrayType(StructType([StructField('coding', ArrayType(StructType([StructField('code', StringType(), True), StructField('display', StringType(), True), StructField('system', StringType(), True)]), True), True)]), True), True)])
+
+        if isinstance(last_date, str):
+
+            last_pdate = datetime.strptime(last_date, "%Y-%m-%d")
+            current_pdate = last_pdate + timedelta(1)
+            current_run_date(current_pdate)
+            year= current_pdate.strftime("%Y")
+            month = current_pdate.strftime("%m")
+            day= current_pdate.strftime("%d")
+            file_path = f"{s3_input_path}year={year}/month={month}/day={day}"
+            try:
+                print(f"Reading data from partition - {file_path}")
+                cols=["year","month","day"]
+                hcservice_df = spark.read.schema(schema).json(file_path, multiLine=True) \
+                                .withColumn('year', F.lit(year)).withColumn('month', F.lit(month)).withColumn('day', F.lit(day))
+                hcservice_df = hcservice_df.withColumn("pdate",concat_ws("-",*cols).cast("date"))
+                if len(hcservice_df.head(1)) > 0:
+                    data_avail_flag = True
+                else:
+                    print(f'path - {file_path} exists but no data')
+                    data_avail_flag = False
+                    hcservice_df = None
+            except:
+                data_avail_flag = False
+                print(f"File path - {file_path} doesn't exist.")
+
+        
+              
+
+        # location_df.printSchema()
+        if data_avail_flag:
+            flattened_df = hcservice_df.withColumn("versionId", hcservice_df.meta.versionId) \
+                .drop(hcservice_df.meta) \
+                .withColumn("hcservice_category", explode_outer(hcservice_df.category)) \
+                .withColumn("hcservice_category_coding_explode", explode_outer(col("hcservice_category.coding"))) \
+                .withColumn("hcservice_category_coding_system", col("hcservice_category_coding_explode.system")) \
+                .withColumn("hcservice_category_coding_code", col("hcservice_category_coding_explode.code")) \
+                .withColumn("hcservice_category_coding_display", col("hcservice_category_coding_explode.display")) \
+                .drop(col("hcservice_category_coding_explode")) \
+                .drop(col("hcservice_category")) \
+                .drop(hcservice_df.category) \
+                .withColumn("hcservice_type", explode_outer(hcservice_df.type)) \
+                .withColumn("hcservice_type_coding_explode", explode_outer(col("hcservice_type.coding"))) \
+                .withColumn("hcservice_type_coding_system", col("hcservice_type_coding_explode.system")) \
+                .withColumn("hcservice_type_coding_code", col("hcservice_type_coding_explode.code")) \
+                .withColumn("hcservice_type_coding_display", col("hcservice_type_coding_explode.display")) \
+                .drop(col("hcservice_type_coding_explode")) \
+                .drop(col("hcservice_type")) \
+                .drop(hcservice_df.type) \
+                .withColumn("hcservice_specialty", explode_outer(hcservice_df.specialty)) \
+                .drop(col("hcservice_specialty")) \
+                .drop(hcservice_df.specialty) \
+                .drop("text")
+
+            flattened_df = flattened_df.distinct()
+            
+            pcc_df = flattened_df.withColumn('PROV_CHRTC_CD', when((flattened_df['hcservice_type_coding_system'] == "http://bpd.bcbs.com/CodeSystem/BCBSProviderCharacteristicsCS"), (flattened_df['hcservice_type_coding_code'])))
+            pcc_df = pcc_df.groupBy('id').agg(collect_set('PROV_CHRTC_CD').alias('PROV_CHRTC_CD'))
+            pcc_df = pcc_df.withColumn('PROV_CHRTC_CD',format_col(pcc_df['PROV_CHRTC_CD']))
+            pcc = flattened_df.join(pcc_df, ['id'], 'inner')
+
+            pcc = pcc.withColumn('MEDICARE_ESSENTIAL_HOSPITAL', when((pcc['hcservice_category_coding_display'] == 'medicare'), F.lit("Y")).otherwise(F.lit("N"))) \
+                            .withColumn('TRANSLATOR_SERVICE_IND', when((pcc['hcservice_category_coding_display'] == 'translator'), F.lit("Y")).otherwise(F.lit("N"))) \
+                            .withColumn('DISCLAIMER_CODE', when((pcc['hcservice_category_coding_display'] == 'disclaimer'), F.lit("Y")).otherwise(F.lit("N")))
+            
+
+            pcc = pcc.select('id', 'resourcetype', 'versionId', 'MEDICARE_ESSENTIAL_HOSPITAL', 'TRANSLATOR_SERVICE_IND', 'DISCLAIMER_CODE', 'PROV_CHRTC_CD', "year","month","day", 'pdate')
+            
+            col_list = pcc.columns 
+            for each_col in col_list:
+                if each_col in ['id', 'versionId','year', 'month', 'day']:
+                    pass
+                else:
+                    pcc = pcc.withColumn('flag', F.when(F.col(each_col).isNull(),F.lit(0)).otherwise(F.lit(1)))
+                    pcc = pcc.withColumn(each_col , F.last(each_col,True).over(w.partitionBy('id', 'versionId','year', 'month', 'day').orderBy(F.col('flag').desc()).rowsBetween(-sys.maxsize,0))).drop('flag')  
+                    pcc = pcc.distinct()
+
+            df_output = pcc
+
+            
+            print('***************Storing data in target location ***************')
+            output_bucket = args["s3_output_path"]
+
+            df_output = df_output.withColumn('month', F.when(F.length(F.col('month')) == 1, F.concat(F.lit('0'), F.col('month'))).otherwise(F.col('month'))) \
+                                .withColumn('day', F.when(F.length(F.col('day')) == 1, F.concat(F.lit('0'), F.col('day'))).otherwise(F.col('day')))
+
+            df_output = df_output.drop('pdate')
+            df_output.write.mode('overwrite').format('parquet').partitionBy('year', 'month', 'day').option("partitionOverwriteMode", "dynamic").save(output_bucket)
+            print('***************Data loaded ***************')
+            
+        else:
+            print('Healthcare_service data not available at source - {}'.format(current_pdate))
+        
+        return current_pdate
+
+    if __name__ == "__main__":
+        run_date = datetime.today()
+        current_pdate = None
+        glueContext = GlueContext(SparkContext.getOrCreate())
+        spark = glueContext.spark_session
+        current_pdate = process_data(spark, last_date)
+
+        current_pdate = datetime.strptime((current_pdate).strftime('%Y-%m-%d'),"%Y-%m-%d").date()
+
+        # Prepare metadata table
+        print("Initiating processing for metadata table")
+        processing_time = datetime.now()
+        job_name_met = 'healthcare_service'
+        print(f"last+p_date {current_pdate} ----------- processing_time {processing_time} ---------")
+        meta_data_path = args["metadata_path"]
+        meta_data_df = spark.createDataFrame([(current_pdate, processing_time, job_name_met)],
+                                    ['last_date', 'run_date', 'job_name_met'])
+        meta_data_df.coalesce(1).write.mode('append').format('csv').option('header', 'true').save(meta_data_path)
+        print("Processed metadata table")
+
+            
+except Exception as e:
+    # preparing data for SNS notification
+    status = 'FINISHED_FAILURE'
+    if current_pdate: 
+        message = (f' Job_Name: {job_name}\n Status: {status} \n environment: {environment} \n Job_Run_ID: {job_run_id} \n Data_Date: {current_pdate} \
+        \n Run_Date: {run_date} \n ERROR: {e}')
+    else: 
+        message = (f' Job_Name: {job_name}\n Status: {status} \n environment: {environment} \n Job_Run_ID: {job_run_id} \n Run_Date: {run_date} \n ERROR: {e}')
+    subject = (f'[{environment}] {job_name} {status}')
+    sns_client.publish(TopicArn=sns_arn,
+        Message=message,
+        Subject=subject)
+    raise e

@@ -1,0 +1,167 @@
+{
+  "Source_Schema":{
+  "type": "struct",
+  "fields": [
+    {
+      "name": "id",
+      "type": "string",
+      "nullable": true,
+      "metadata": {}
+    },
+    {
+      "name": "identifier",
+      "type": {
+        "type": "array",
+        "elementType": {
+          "type": "struct",
+          "fields": [
+            {
+              "name": "assigner",
+              "type": {
+                "type": "struct",
+                "fields": [
+                  {
+                    "name": "display",
+                    "type": "string",
+                    "nullable": true,
+                    "metadata": {}
+                  }
+                ]
+              },
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "value",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            }
+          ]
+        },
+        "containsNull": true
+      },
+      "nullable": true,
+      "metadata": {}
+    },
+    {
+      "name": "meta",
+      "type": {
+        "type": "struct",
+        "fields": [
+          {
+            "name": "profile",
+            "type": {
+              "type": "array",
+              "elementType": "string",
+              "containsNull": true
+            },
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "versionId",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          }
+        ]
+      },
+      "nullable": true,
+      "metadata": {}
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "nullable": true,
+      "metadata": {}
+    },
+    {
+      "name": "partOf",
+      "type": {
+        "type": "struct",
+        "fields": [
+          {
+            "name": "reference",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          }
+        ]
+      },
+      "nullable": true,
+      "metadata": {}
+    },
+    {
+      "name": "resourceType",
+      "type": "string",
+      "nullable": true,
+      "metadata": {}
+    },
+    {
+      "name": "text",
+      "type": {
+        "type": "struct",
+        "fields": [
+          {
+            "name": "div",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "status",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          }
+        ]
+      },
+      "nullable": true,
+      "metadata": {}
+    }
+  ]
+},
+
+"array_column_dict":
+    {
+        "1": [
+            "meta_profile",
+            "extension",
+            "identifier"
+        ],
+        "2":[
+          
+        ]
+            
+       
+
+    },
+
+
+ "intermediate_column_dict":
+      {
+        "1": [
+            "resourcetype",
+            "id",
+            "meta.versionId",
+            "meta.lastUpdated",
+            "meta.profile",
+            "partOf.reference"  
+        ],
+
+        "2": [
+            "extension.url",
+            "extension.valueReference.reference",
+            "identifier.value",
+            "identifier.period.start",
+            "identifier.period.end",
+            "identifier.assigner.display"        
+        ]
+       
+
+    }
+
+}
+
+

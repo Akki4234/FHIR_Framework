@@ -1,0 +1,484 @@
+{
+              "resourceType": "Organization",
+              "id": "710-64d7dbe3-3958-4a8d-9760-80fe1c3c9f1f-Network",
+              "meta": {
+                             "versionId": "166",
+                             "lastUpdated": "2022-09-11T19:26:09.053-05:00",
+                             "profile": [
+                                           "http://bpd.bcbs.com/StructureDefinition/bpd-network-query-demographics"
+                             ]
+              },
+              "extension": [
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/030-5c172167-0b03-0f84-c126-a4f8f3b9a4f8-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/430-67dcc235-0c00-2a95-785a-2b870c9d2b87-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/720-e1e14462-c5f0-58ee-3c4f-2f25cb5f2f25-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/430-d20aac14-36ff-7af6-3cab-a9f7e296a9f7-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/030-8a8de8a8-3197-f58c-4f85-d7a3b05bd7a3-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/720-401660b6-e3f3-dab0-6892-95682b599568-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/320-437112e1-7d7a-a53c-ea55-4abd6cb34abd-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/890-4ef070ca-eba0-4370-1d07-2f0837592f08-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/430-183b1e2a-38a9-3c29-0d63-3ee396363ee3-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/430-4f597c78-0dac-8893-4b96-d32f4b5cd32f-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/430-6c81dcfb-bbd7-e405-1671-251429ec2514-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/430-10ef722b-ff8a-28d8-9985-9e0654e99e06-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/310-0f5bfacc-18c7-cf0a-b27f-a67c69a2a67c-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/460-c2cb09a8-c6d2-cca8-a5c5-72fa432972fa-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/430-fc42cb1d-ae69-49bc-9e14-ed9a57d6ed9a-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/710-a5fda642-0189-551e-9d4f-51c89ea051c8-InsurancePlan"
+                                           }
+                            },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/720-625eaa7b-ddb0-f791-e132-361198ea3611-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/320-1ccb1299-2f01-d876-2450-c1f55c30c1f5-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/430-9e3c15b4-ec33-ed6b-913b-117c0fa3117c-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/430-bf34e90f-87ca-c577-9531-33f08d6e33f0-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/430-f6ab5877-799c-720f-d625-b05c0619b05c-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/710-e9b10fa9-1563-4781-4778-d16099bdd160-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/310-baf79ce4-c031-02cb-5964-9fdfe0599fdf-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/030-3f855b5b-c901-fe34-0f82-6b42b8a46b42-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/720-0049ba05-6d8e-fd8b-e4e9-9ac681629ac6-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/260-4776cbe0-a12a-670c-e233-4a230bd24a23-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/430-c145d748-31aa-753e-a485-a2cb81aaa2cb-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/030-006a1352-0e86-08ec-568a-07a2f32e07a2-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/430-d85e5203-6b02-737d-43e0-215f0957215f-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/720-6deeb75b-c35a-04a3-aadb-01f102b501f1-InsurancePlan"
+                                           }
+                            },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/430-03022a6c-923f-1c21-79b0-bf0349fdbf03-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/430-42082c62-48ab-dfc9-38e3-ef21cd5aef21-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/430-233e4947-db00-e975-92bf-b2d2a994b2d2-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/030-69394a9b-9d03-2265-7bdc-9541768d9541-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/430-1a9afdc9-f41e-ef48-74d1-80e6530580e6-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/720-09c23fa9-bb33-3493-51b3-f01d7342f01d-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/890-579e22bd-1071-f928-b9bf-059e6519059e-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/430-18a19fc8-12df-8b83-faf2-f3d6a6c7f3d6-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/460-cf59bcc5-612d-531b-a284-6c9fea266c9f-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/430-e3296e02-b3a2-010e-ff4e-7fa9c4ad7fa9-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/430-8e1e1f34-0b4a-f1fd-3646-783e4c81783e-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/430-0fff806a-f106-6135-0edb-9e6380db9e63-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/320-e07930cf-afaa-d6ca-3e91-4377d6dd4377-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/710-722a675f-2a1f-f019-1232-01fcfc6401fc-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/720-926ddbe3-a590-40cc-4a39-78f4a52d78f4-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/310-f8935b60-a6c1-92ec-4a23-d3082bb5d308-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/320-7f59b29d-3482-e195-7dae-502e4a18502e-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/320-3c0a593d-52de-e9b1-f93a-2ba8407d2ba8-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/320-523c7bb9-e39e-c047-5d33-7bf2e5c17bf2-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/320-495a1d52-5f97-3579-6e25-bf759794bf75-InsurancePlan"
+                                           }
+                            },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/320-f56c4869-ad12-bbae-f50f-ba8de5c6ba8d-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/320-9230acf6-e3a0-7b4e-9fa8-51cef9f551ce-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/320-69e37585-5d1f-f96a-0666-67152d796715-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/320-6146d473-3e4e-2f80-223e-0c3058cd0c30-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/320-36332ff8-8b7b-6b0f-9852-509a7975509a-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/320-41488fcc-6bb7-c337-5b52-0df208e40df2-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/320-5252835c-680f-1502-02cf-72df8f0d72df-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/320-e0253399-e1fa-0e79-f464-643f09c9643f-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/320-59a25e7c-ee80-419a-3f01-746571767465-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/320-16adaa85-626b-028e-94e8-b98ee640b98e-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/320-beb76acd-72ea-2888-479f-b691e137b691-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/320-0843ecf3-9461-7b39-967e-6a76af5a6a76-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/320-041cf0d3-54f2-e1f9-80e3-da0ff91bda0f-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/320-d8d70aa8-602b-644b-3122-d2598b47d259-InsurancePlan"
+                                           }
+                            },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/430-bdcf328e-8c64-9292-5186-09a2a2cd09a2-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/320-3404f701-2af4-5645-6e0a-940670da9406-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/320-393b0dfd-fbd1-c9b1-8e18-fa1fe3acfa1f-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/320-28f717f9-093d-d3f6-212f-b4cd032ab4cd-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/320-c6444b0f-56bf-fa55-9b41-4c4794754c47-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/320-9ede359e-3a4b-a73d-caff-605b4dc1605b-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/320-f2017e16-f631-2f6a-ac4b-f41ca326f41c-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/260-c56efe4c-c5fe-6187-d976-0cdb49bf0cdb-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/710-a4ab0f6a-7ad5-2d86-cc3a-fea89ff6fea8-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/710-8e8f33c1-4db2-dbc2-26a7-14cfe3fd14cf-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/720-a54566fc-e9e8-c19c-6958-571f1b47571f-InsurancePlan"
+                                           }
+                             },
+                             {
+                                           "url": "http://bpd.bcbs.com/StructureDefinition/chainingToInsurancePlanSupport",
+                                           "valueReference": {
+                                                          "reference": "InsurancePlan/030-59aa5f8c-b193-897f-21a6-8ba4b66f8ba4-InsurancePlan"
+                                           }
+                             }
+              ],
+              "identifier": [
+                             {
+                                           "value": "26Q0",
+                                           "period": {
+                                                          "start": "2019-05-03",
+                                                          "end": "9999-12-31"
+                                           },
+                                           "assigner": {
+                                                          "display": "PPO MSN Flint"
+                                           }
+                             }
+              ],
+              "partOf": {
+                             "reference": "Organization/710-22ded8be-b827-4afb-a785-ecc5f8581071-Licensee"
+              }
+}

@@ -1,0 +1,623 @@
+{
+
+    "resourceType": "Practitioner",
+  
+    "id": "283-PDXPractitioner-7EE527EC-181D-4E8D-BC7C-EB26D2BCE860",
+  
+    "meta": {
+  
+      "versionId": "1",
+  
+      "lastUpdated": "2022-12-02T07:35:32.794-06:00",
+  
+      "profile": [
+  
+        "http://bpd.bcbs.com/StructureDefinition/bpd-practitioner-plan-submission"
+  
+      ]
+  
+    },
+  
+    "text": {
+  
+      "status": "generated",
+  
+      "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative</b></p><p><b>id</b>: PDXPractitioner-7EE527EC-181D-4E8D-BC7C-EB26D2BCE860</p><p><b>meta</b>: </p><p><b>identifier</b>: Provider number = 123DR, National provider identifier = 1777755555, Provider Cross Reference Number = 123OLD, Provider Master Identifier = 1111111111, Social Security number = 999777888</p><p><b>name</b>: John M Doe </p><p><b>telecom</b>: ph: 555-847-2200(WORK), http://www.shoresidemedical.com(WORK)</p><p><b>gender</b>: male</p><blockquote><p><b>qualification</b></p><p><b>code</b>: <span title=\"Codes: {http://nucc.org/provider-taxonomy 208000000X}\">Pediatrics</span></p><p><b>issuer</b>: <a href=\"Organization-PDXQualificationEntity04.html\">Generated Summary: id: PDXQualificationEntity04; name: American Board of Pediatrics</a></p></blockquote><blockquote><p><b>qualification</b></p><p><b>code</b>: <span title=\"Codes: {http://nucc.org/provider-taxonomy 207R00000X}\">Internal Medicine</span></p><p><b>issuer</b>: <a href=\"Organization-PDXQualificationEntity05.html\">Generated Summary: id: PDXQualificationEntity05; name: American Board of Internal Medicine</a></p></blockquote><blockquote><p><b>qualification</b></p><p><b>code</b>: <span title=\"Codes: {http://nucc.org/provider-taxonomy 207RA0000X}\">Adolescent Medicine</span></p></blockquote><blockquote><p><b>qualification</b></p><p><b>code</b>: <span title=\"Codes: {http://bpd.bcbs.com/CodeSystem/BCBSDegreeLicenseCertificateCS MD}\">Doctor of Medicine</span></p></blockquote><blockquote><p><b>qualification</b></p><p><b>code</b>: <span title=\"Codes: {http://bpd.bcbs.com/CodeSystem/BCBSTrainingTypeCS MEDSCHL}\">Medical School</span></p><p><b>period</b>: ?? --&gt; 1995</p><p><b>issuer</b>: <a href=\"Organization-PDXQualificationEntity01.html\">Generated Summary: id: PDXQualificationEntity01; name: ACME University</a></p></blockquote><blockquote><p><b>qualification</b></p><p><b>code</b>: <span title=\"Codes: {http://bpd.bcbs.com/CodeSystem/BCBSTrainingTypeCS INTERN}\">Internship</span></p><p><b>issuer</b>: <a href=\"Organization-PDXQualificationEntity02.html\">Generated Summary: id: PDXQualificationEntity02; name: Childrens Specialty Hospital</a></p></blockquote><blockquote><p><b>qualification</b></p><p><b>code</b>: <span title=\"Codes: {http://bpd.bcbs.com/CodeSystem/BCBSTrainingTypeCS RESIDEN}\">Residency</span></p><p><b>issuer</b>: <a href=\"Organization-PDXQualificationEntity03.html\">Generated Summary: id: PDXQualificationEntity03; name: County General Hospital</a></p></blockquote><blockquote><p><b>qualification</b></p><p><b>identifier</b>: 99994444</p><p><b>code</b>: <span title=\"Codes: {http://bpd.bcbs.com/CodeSystem/BCBSDegreeLicenseCertificateCS MD}\">Doctor of Medicine</span></p></blockquote><p><b>communication</b>: <span title=\"Codes: {urn:ietf:bcp:47 en}\">English</span>, <span title=\"Codes: {urn:ietf:bcp:47 it}\">Italian</span></p></div>"
+  
+    },
+  
+    "identifier": [
+  
+      {
+  
+        "type": {
+  
+          "coding": [
+  
+            {
+  
+              "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+  
+              "code": "PRN",
+  
+              "display": "Provider number"
+  
+            }
+  
+          ]
+  
+        },
+  
+        "value": "123DR"
+  
+      },
+  
+      {
+  
+        "type": {
+  
+          "coding": [
+  
+            {
+  
+              "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+  
+              "code": "NPI",
+  
+              "display": "National provider identifier"
+  
+            }
+  
+          ]
+  
+        },
+  
+        "value": "1942456827"
+  
+      },
+  
+      {
+  
+        "type": {
+  
+          "coding": [
+  
+            {
+  
+              "system": "http://bpd.bcbs.com/CodeSystem/BCBSIdentifierTypeCS",
+  
+              "code": "PRM",
+  
+              "display": "Provider Master Identifier"
+  
+            }
+  
+          ]
+  
+        },
+  
+        "value": "111111abcd"
+  
+      },
+  
+      {
+  
+        "type": {
+  
+          "coding": [
+  
+            {
+  
+              "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+  
+              "code": "SS",
+  
+              "display": "Social Security number"
+  
+            }
+  
+          ]
+  
+        },
+  
+        "value": "928366821"
+  
+      }
+  
+    ],
+  
+    "name": [
+  
+      {
+  
+        "family": "Snow",
+  
+        "given": [
+  
+          "John",
+  
+          "M"
+  
+        ],
+  
+        "suffix": [
+  
+          "JR"
+  
+        ]
+  
+      }
+  
+    ],
+  
+    "telecom": [
+  
+      {
+  
+        "system": "phone",
+  
+        "value": "6668472200",
+  
+        "use": "work"
+  
+      },
+  
+      {
+  
+        "system": "url",
+  
+        "value": "http://www.shoresidemedical.com",
+  
+        "use": "work"
+  
+      }
+  
+    ],
+  
+    "gender": "male",
+  
+    "qualification": [
+  
+      {
+  
+        "extension": [
+  
+          {
+  
+            "url": "http://bpd.bcbs.com/StructureDefinition/qualificationtype",
+  
+            "valueCode": "boardcert"
+  
+          }
+  
+        ],
+  
+        "code": {
+  
+          "extension": [
+  
+            {
+  
+              "url": "http://bpd.bcbs.com/StructureDefinition/boardcertificationindicator",
+  
+              "valueBoolean": true
+  
+            }
+  
+          ],
+  
+          "coding": [
+  
+            {
+  
+              "system": "http://nucc.org/provider-taxonomy",
+  
+              "code": "208000000X",
+  
+              "display": "Pediatrics"
+  
+            }
+  
+          ]
+  
+        },
+  
+        "issuer": {
+  
+          "reference": "Organization/283-PDXQualificationEntity-7EE527EC-181D-4E8D-BC7C-EB26D2BCE860"
+  
+        }
+  
+      },
+  
+      {
+  
+        "extension": [
+  
+          {
+  
+            "url": "http://bpd.bcbs.com/StructureDefinition/qualificationtype",
+  
+            "valueCode": "boardcert"
+  
+          }
+  
+        ],
+  
+        "code": {
+  
+          "extension": [
+  
+            {
+  
+              "url": "http://bpd.bcbs.com/StructureDefinition/boardcertificationindicator",
+  
+              "valueBoolean": true
+  
+            }
+  
+          ],
+  
+          "coding": [
+  
+            {
+  
+              "system": "http://nucc.org/provider-taxonomy",
+  
+              "code": "207R00000X",
+  
+              "display": "Internal Medicine"
+  
+            }
+  
+          ]
+  
+        },
+  
+        "issuer": {
+  
+          "reference": "Organization/283-PDXQualificationEntity-7EE527EC-181D-4E8D-BC7C-EB26D2BCE860"
+  
+        }
+  
+      },
+  
+      {
+  
+        "extension": [
+  
+          {
+  
+            "url": "http://bpd.bcbs.com/StructureDefinition/qualificationtype",
+  
+            "valueCode": "boardcert"
+  
+          }
+  
+        ],
+  
+        "code": {
+  
+          "extension": [
+  
+            {
+  
+              "url": "http://bpd.bcbs.com/StructureDefinition/boardcertificationindicator",
+  
+              "valueBoolean": false
+  
+            }
+  
+          ],
+  
+          "coding": [
+  
+            {
+  
+              "system": "http://nucc.org/provider-taxonomy",
+  
+              "code": "207RA0000X",
+  
+              "display": "Adolescent Medicine"
+  
+            }
+  
+          ]
+  
+        }
+  
+      },
+  
+      {
+  
+        "extension": [
+  
+          {
+  
+            "url": "http://bpd.bcbs.com/StructureDefinition/qualificationtype",
+  
+            "valueCode": "degree"
+  
+          }
+  
+        ],
+  
+        "code": {
+  
+          "coding": [
+  
+            {
+  
+              "system": "http://bpd.bcbs.com/CodeSystem/BCBSDegreeLicenseCertificateCS",
+  
+              "code": "MD",
+  
+              "display": "Doctor of Medicine"
+  
+            }
+  
+         ]
+  
+        }
+  
+      },
+  
+      {
+  
+        "extension": [
+  
+          {
+  
+            "url": "http://bpd.bcbs.com/StructureDefinition/qualificationtype",
+  
+            "valueCode": "medschl"
+  
+          }
+  
+        ],
+  
+        "code": {
+  
+          "coding": [
+  
+            {
+  
+              "system": "http://bpd.bcbs.com/CodeSystem/BCBSTrainingTypeCS",
+  
+              "code": "MEDSCHL",
+  
+              "display": "Medical School"
+  
+            }
+  
+          ]
+  
+        },
+  
+        "period": {
+  
+          "end": "1995"
+  
+        },
+  
+        "issuer": {
+  
+          "reference": "Organization/283-PDXQualificationEntity-7EE527EC-181D-4E8D-BC7C-EB26D2BCE860"
+  
+        }
+  
+      },
+  
+      {
+  
+        "extension": [
+  
+          {
+  
+            "url": "http://bpd.bcbs.com/StructureDefinition/qualificationtype",
+  
+            "valueCode": "internresid"
+  
+          }
+  
+        ],
+  
+        "code": {
+  
+          "coding": [
+  
+            {
+  
+              "system": "http://bpd.bcbs.com/CodeSystem/BCBSTrainingTypeCS",
+  
+              "code": "INTERN",
+  
+              "display": "Internship"
+  
+            }
+  
+          ]
+  
+        },
+  
+        "issuer": {
+  
+          "reference": "Organization/283-PDXQualificationEntity-7EE527EC-181D-4E8D-BC7C-EB26D2BCE860"
+  
+        }
+  
+      },
+  
+      {
+  
+        "extension": [
+  
+          {
+  
+            "url": "http://bpd.bcbs.com/StructureDefinition/qualificationtype",
+  
+            "valueCode": "internresid"
+  
+          }
+  
+        ],
+  
+        "code": {
+  
+          "coding": [
+  
+            {
+  
+              "system": "http://bpd.bcbs.com/CodeSystem/BCBSTrainingTypeCS",
+  
+              "code": "RESIDEN",
+  
+              "display": "Residency"
+  
+            }
+  
+          ]
+  
+        },
+  
+        "issuer": {
+  
+          "reference": "Organization/283-PDXQualificationEntity-7EE527EC-181D-4E8D-BC7C-EB26D2BCE860"
+  
+        }
+  
+      },
+  
+      {
+  
+        "extension": [
+  
+          {
+  
+            "url": "http://bpd.bcbs.com/StructureDefinition/qualificationtype",
+  
+            "valueCode": "stlcxx"
+  
+          }
+  
+        ],
+  
+        "identifier": [
+  
+          {
+  
+            "value": "99994444"
+  
+          }
+  
+        ],
+  
+        "code": {
+  
+          "extension": [
+  
+            {
+  
+              "url": "http://bpd.bcbs.com/StructureDefinition/practitionerqualification",
+  
+              "extension": [
+  
+                {
+  
+                  "url": "status",
+  
+                  "valueCode": "active"
+  
+                },
+  
+                {
+  
+                  "url": "whereValid",
+  
+                  "valueCodeableConcept": {
+  
+                    "coding": [
+  
+                      {
+  
+                        "system": "https://www.usps.com/",
+  
+                        "code": "AZ",
+  
+                        "display": "Arizona"
+  
+                      }
+  
+                    ]
+  
+                  }
+  
+                }
+  
+              ]
+  
+            }
+  
+          ],
+  
+          "coding": [
+  
+            {
+  
+              "system": "http://bpd.bcbs.com/CodeSystem/BCBSDegreeLicenseCertificateCS",
+  
+              "code": "MD",
+  
+              "display": "Doctor of Medicine"
+  
+            }
+  
+          ]
+  
+        }
+  
+      }
+  
+    ],
+  
+    "communication": [
+  
+      {
+  
+        "coding": [
+  
+          {
+  
+            "system": "urn:ietf:bcp:47",
+  
+            "code": "en",
+  
+            "display": "English"
+  
+          }
+  
+        ]
+  
+      },
+  
+      {
+  
+        "coding": [
+  
+          {
+  
+            "system": "urn:ietf:bcp:47",
+  
+            "code": "it",
+  
+            "display": "Italian"
+  
+          }
+  
+        ]
+  
+      }
+  
+    ]
+  
+  }

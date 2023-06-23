@@ -1,0 +1,449 @@
+{
+    "Source_Schema":
+    {
+        "type": "struct",
+        "fields": [
+          {
+            "name": "address",
+            "type": {
+              "type": "array",
+              "elementType": {
+                "type": "struct",
+                "fields": [
+                  {
+                    "name": "city",
+                    "type": "string",
+                    "nullable": true,
+                    "metadata": {}
+                  },
+                  {
+                    "name": "country",
+                    "type": "string",
+                    "nullable": true,
+                    "metadata": {}
+                  },
+                  {
+                    "name": "district",
+                    "type": "string",
+                    "nullable": true,
+                    "metadata": {}
+                  },
+                  {
+                    "name": "line",
+                    "type": {
+                      "type": "array",
+                      "elementType": "string",
+                      "containsNull": true
+                    },
+                    "nullable": true,
+                    "metadata": {}
+                  },
+                  {
+                    "name": "postalCode",
+                    "type": "string",
+                    "nullable": true,
+                    "metadata": {}
+                  },
+                  {
+                    "name": "state",
+                    "type": "string",
+                    "nullable": true,
+                    "metadata": {}
+                  },
+                  {
+                    "name": "type",
+                    "type": "string",
+                    "nullable": true,
+                    "metadata": {}
+                  },
+                  {
+                    "name": "use",
+                    "type": "string",
+                    "nullable": true,
+                    "metadata": {}
+                  }
+                ]
+              },
+              "containsNull": true
+            },
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "extension",
+            "type": {
+              "type": "array",
+              "elementType": {
+                "type": "struct",
+                "fields": [
+                  {
+                    "name": "extension",
+                    "type": {
+                      "type": "array",
+                      "elementType": {
+                        "type": "struct",
+                        "fields": [
+                          {
+                            "name": "url",
+                            "type": "string",
+                            "nullable": true,
+                            "metadata": {}
+                          },
+                          {
+                            "name": "valueCodeableConcept",
+                            "type": {
+                              "type": "struct",
+                              "fields": [
+                                {
+                                  "name": "coding",
+                                  "type": {
+                                    "type": "array",
+                                    "elementType": {
+                                      "type": "struct",
+                                      "fields": [
+                                        {
+                                          "name": "code",
+                                          "type": "string",
+                                          "nullable": true,
+                                          "metadata": {}
+                                        }
+                                      ]
+                                    },
+                                    "containsNull": true
+                                  },
+                                  "nullable": true,
+                                  "metadata": {}
+                                }
+                              ]
+                            },
+                            "nullable": true,
+                            "metadata": {}
+                          },
+                          {
+                            "name": "valuePeriod",
+                            "type": {
+                              "type": "struct",
+                              "fields": [
+                                {
+                                  "name": "end",
+                                  "type": "string",
+                                  "nullable": true,
+                                  "metadata": {}
+                                },
+                                {
+                                  "name": "start",
+                                  "type": "string",
+                                  "nullable": true,
+                                  "metadata": {}
+                                }
+                              ]
+                            },
+                            "nullable": true,
+                            "metadata": {}
+                          },
+                          {
+                            "name": "valueReference",
+                            "type": {
+                              "type": "struct",
+                              "fields": [
+                                {
+                                  "name": "reference",
+                                  "type": "string",
+                                  "nullable": true,
+                                  "metadata": {}
+                                }
+                              ]
+                            },
+                            "nullable": true,
+                            "metadata": {}
+                          }
+                        ]
+                      },
+                      "containsNull": true
+                    },
+                    "nullable": true,
+                    "metadata": {}
+                  },
+                  {
+                    "name": "url",
+                    "type": "string",
+                    "nullable": true,
+                    "metadata": {}
+                  }
+                ]
+              },
+              "containsNull": true
+            },
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "id",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "meta",
+            "type": {
+              "type": "struct",
+              "fields": [
+                {
+                  "name": "lastUpdated",
+                  "type": "string",
+                  "nullable": true,
+                  "metadata": {}
+                },
+                {
+                  "name": "profile",
+                  "type": {
+                    "type": "array",
+                    "elementType": "string",
+                    "containsNull": true
+                  },
+                  "nullable": true,
+                  "metadata": {}
+                },
+                {
+                  "name": "source",
+                  "type": "string",
+                  "nullable": true,
+                  "metadata": {}
+                },
+                {
+                  "name": "versionId",
+                  "type": "string",
+                  "nullable": true,
+                  "metadata": {}
+                }
+              ]
+            },
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "resourceType",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "telecom",
+            "type": {
+              "type": "array",
+              "elementType": {
+                "type": "struct",
+                "fields": [
+                  {
+                    "name": "system",
+                    "type": "string",
+                    "nullable": true,
+                    "metadata": {}
+                  },
+                  {
+                    "name": "use",
+                    "type": "string",
+                    "nullable": true,
+                    "metadata": {}
+                  },
+                  {
+                    "name": "value",
+                    "type": "string",
+                    "nullable": true,
+                    "metadata": {}
+                  }
+                ]
+              },
+              "containsNull": true
+            },
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "text",
+            "type": {
+              "type": "struct",
+              "fields": [
+                {
+                  "name": "div",
+                  "type": "string",
+                  "nullable": true,
+                  "metadata": {}
+                },
+                {
+                  "name": "status",
+                  "type": "string",
+                  "nullable": true,
+                  "metadata": {}
+                }
+              ]
+            },
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "identifier",
+            "type": {
+              "type": "array",
+              "elementType": {
+                "type": "struct",
+                "fields": [
+                  {
+                    "name": "period",
+                    "type": {
+                      "type": "struct",
+                      "fields": [
+                        {
+                          "name": "end",
+                          "type": "string",
+                          "nullable": true,
+                          "metadata": {}
+                        },
+                        {
+                          "name": "start",
+                          "type": "string",
+                          "nullable": true,
+                          "metadata": {}
+                        }
+                      ]
+                    },
+                    "nullable": true,
+                    "metadata": {}
+                  },
+                  {
+                    "name": "system",
+                    "type": "string",
+                    "nullable": true,
+                    "metadata": {}
+                  },
+                  {
+                    "name": "type",
+                    "type": {
+                      "type": "struct",
+                      "fields": [
+                        {
+                          "name": "coding",
+                          "type": {
+                            "type": "array",
+                            "elementType": {
+                              "type": "struct",
+                              "fields": [
+                                {
+                                  "name": "code",
+                                  "type": "string",
+                                  "nullable": true,
+                                  "metadata": {}
+                                },
+                                {
+                                  "name": "display",
+                                  "type": "string",
+                                  "nullable": true,
+                                  "metadata": {}
+                                },
+                                {
+                                  "name": "system",
+                                  "type": "string",
+                                  "nullable": true,
+                                  "metadata": {}
+                                }
+                              ]
+                            },
+                            "containsNull": true
+                          },
+                          "nullable": true,
+                          "metadata": {}
+                        }
+                      ]
+                    },
+                    "nullable": true,
+                    "metadata": {}
+                  },
+                  {
+                    "name": "value",
+                    "type": "string",
+                    "nullable": true,
+                    "metadata": {}
+                  }
+                ]
+              },
+              "containsNull": true
+            },
+            "nullable": true,
+            "metadata": {}
+          }
+        ]
+      },
+      "intermediate_column_dict":
+      {
+        "1": [
+            "resourcetype",
+            "id",
+            "meta.versionId",
+            "meta.lastUpdated",
+            "meta.source",
+            "meta.profile",
+            "text.status",
+            "text.div",
+            "name"
+        ],
+
+        "2": [
+            "extension.extension",
+            "extension.url",
+            "identifier.type.coding",
+            "identifier.value",
+            "telecom.system",
+            "telecom.value",
+            "telecom.use",
+            "address.use",
+            "address.type",
+            "address.city",
+            "address.district",
+            "address.state",
+            "address.postalCode",
+            "address.country",
+            "address.line"
+        ],
+        "3": [
+            "extension_extension.valueReference.reference",
+            "extension_extension.valuePeriod.start",
+            "extension_extension.valuePeriod.end",
+            "extension_extension.valueCodeableConcept.coding",
+            "extension_extension.url",
+            "identifier_type_coding.system",
+            "identifier_type_coding.code",
+            "identifier_type_coding.display"
+
+        ]
+
+    },
+
+"array_column_dict":
+    {
+        "1": [
+            "meta_profile",
+            "extension",
+            "identifier",
+            "telecom",
+            "address"
+        ],
+
+        "2": [
+            "extension_extension",
+            "identifier_type_coding",
+            "address_line"
+        ],
+
+        "3":[
+
+        ]
+
+    }
+
+}

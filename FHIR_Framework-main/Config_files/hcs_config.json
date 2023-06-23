@@ -1,0 +1,189 @@
+{
+    "Source_Schema":
+    {
+        "type": "struct",
+        "fields": [
+          {
+            "name": "resourceType",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "id",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "meta",
+            "type": {
+              "type": "struct",
+              "fields": [
+                {
+                  "name": "versionId",
+                  "type": "string",
+                  "nullable": true,
+                  "metadata": {}
+                },
+                {
+                  "name": "lastUpdated",
+                  "type": "string",
+                  "nullable": true,
+                  "metadata": {}
+                },
+                {
+                  "name": "profile",
+                  "type": {
+                    "type": "array",
+                    "elementType": "string",
+                    "containsNull": true
+                  },
+                  "nullable": true,
+                  "metadata": {}
+                },
+                {
+                  "name": "Features",
+                  "type": {
+                    "type": "array",
+                    "elementType": "string",
+                    "containsNull": true
+                  },
+                  "nullable": true,
+                  "metadata": {}
+                },
+                {
+                  "name": "healthdata",
+                  "type": {
+                    "type": "array",
+                    "elementType": "string",
+                    "containsNull": true
+                  },
+                  "nullable": true,
+                  "metadata": {}
+                }
+              ]
+            },
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "extension",
+            "type": {
+              "type": "array",
+              "elementType": {
+                "type": "struct",
+                "fields": [
+                  {
+                    "name": "url",
+                    "type": "string",
+                    "nullable": true,
+                    "metadata": {}
+                  },
+                  {
+                    "name": "valueCodeableConcept",
+                    "type": {
+                      "type": "struct",
+                      "fields": [
+                        {
+                          "name": "coding",
+                          "type": {
+                            "type": "array",
+                            "elementType": {
+                              "type": "struct",
+                              "fields": [
+                                {
+                                  "name": "system",
+                                  "type": "string",
+                                  "nullable": true,
+                                  "metadata": {}
+                                },
+                                {
+                                  "name": "code",
+                                  "type": "string",
+                                  "nullable": true,
+                                  "metadata": {}
+                                },
+                                {
+                                  "name": "display",
+                                  "type": "string",
+                                  "nullable": true,
+                                  "metadata": {}
+                                }
+                              ]
+                            },
+                            "containsNull": true
+                          },
+                          "nullable": true,
+                          "metadata": {}
+                        }
+                      ]
+                    },
+                    "nullable": true,
+                    "metadata": {}
+                  }
+                ]
+              },
+              "containsNull": true
+            },
+            "nullable": true,
+            "metadata": {}
+          }
+        ]
+      },
+
+      "intermediate_column_dict":
+      {
+        "1": [
+            "resourceType",
+            "id",
+            "meta.versionId",
+            "meta.lastUpdated",
+            "meta.profile",
+            "meta.Features",
+            "meta.healthdata"
+        ],
+        "2": [
+            "extension.url",
+            "extension.valueCodeableConcept.coding"
+        ],
+        "3": [
+          "extension_valueCodeableConcept_coding.system",
+          "extension_valueCodeableConcept_coding.code",
+          "extension_valueCodeableConcept_coding.display"
+      ]
+    },  
+
+    "array_column_dict":
+      {
+        "1": [
+            "meta_profile",
+            "meta_Features",
+            "meta_healthdata",
+            "extension"
+        ],
+        "2": [
+            "extension_valueCodeableConcept_coding"
+        ],
+
+        "3":
+        [
+
+        ]
+      },
+
+    "final_target_schema":
+    [
+      "resourceType",
+      "id",
+      "meta_versionId",
+      "meta_lastUpdated",
+      "meta_profile",
+      "meta_Features",
+      "meta_healthdata",
+      "extension_url",
+      "extension_valueCodeableConcept_coding_system",
+      "extension_valueCodeableConcept_coding_code",
+      "extension_valueCodeableConcept_coding_display"
+    ]
+  }

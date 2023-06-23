@@ -1,0 +1,86 @@
+{
+    "column_mapping": [
+      {
+        "column_name": "RESOURCE_TYPE",
+        "mapping_rule": {
+          "target_column": "resourceType"
+        },
+        "column_type": "array"
+      },
+      {
+        "column_name": "ID",
+        "mapping_rule": {
+          "target_column": "id"
+        },
+        "column_type": "array"
+      },
+      {
+        "column_name": "manufacturer",
+        "mapping_rule": {
+          "target_column": "manufacturer"
+        },
+        "column_type": "array"
+      },
+      {
+        "column_name": "serialNumber",
+        "mapping_rule": {
+          "target_column": "serialNumber"
+        },
+        "column_type": "array"
+      },
+      {
+        "column_name": "modelNumber",
+        "mapping_rule": {
+          "target_column": "modelNumber"
+        },
+        "column_type": "array"
+      },
+      {
+        "column_name": "Device_Name",
+        "mapping_rule": {
+          "source_column": "name_type",
+          "match_value": "user-friendly-name",
+          "target_column": "name_value"
+        },
+        "column_type": "array"
+      },
+      {
+        "column_name": "Device_Type",
+        "mapping_rule": {
+          "source_column": "type_coding_code",
+          "match_value": "65573",
+          "target_column": "type_text"
+        },
+        "column_type": "array"
+      },
+
+      {
+        "column_name": "Device_Version",
+        "mapping_rule": {
+          "source_column": "version_type_coding_system",
+          "match_value": "urn:iso:std:iso:11073:10101",
+          "target_column": "version_value"
+        },
+        "column_type": "nonarray"
+      }, 
+      {
+        "column_name": "Device_Specification",
+        "mapping_rule": {
+          "source_column": "conformsTo_specification_coding_code",
+          "match_value": "528391",
+          "target_column": "conformsTo_specification_text"
+        },
+        "column_type": "array"
+      },
+      {
+        "column_name": "device_property",
+        "mapping_rule": {
+          "source_column": "property_type_coding_system",
+          "match_value": "http://terminology.hl7.org/CodeSystem/ASN1ToHL7",
+          "target_column": "property_valueCodeableConcept_text"
+        },
+        "column_type": "Nonarray"
+      }
+    ]
+  }
+  

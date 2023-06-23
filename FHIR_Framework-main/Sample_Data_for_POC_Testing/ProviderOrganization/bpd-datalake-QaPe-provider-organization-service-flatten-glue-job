@@ -1,0 +1,345 @@
+import sys
+
+import pyspark
+from pyspark import SparkContext
+from pyspark.sql import functions as F
+from pyspark.sql import types as pt
+from pyspark.sql.window import Window as w
+from awsglue.context import GlueContext
+from datetime import datetime, timedelta, date
+from awsglue.utils import getResolvedOptions
+from pyspark.sql.functions import explode, explode_outer, col, when, split, element_at, to_date, lit, desc, dense_rank,concat_ws, concat, collect_set, udf, row_number, length, coalesce
+from pyspark.sql.types import StringType
+from pyspark.sql.types import *
+from pyspark.sql import DataFrame
+from pyspark.sql import Row
+from functools import reduce
+from pyspark.sql.utils import AnalysisException
+import boto3
+
+try:
+    args = getResolvedOptions(sys.argv, ['last_date'])
+    last_date = args['last_date']
+
+except:
+    print('arguments are missing')
+    last_date = None
+
+try:
+    args = getResolvedOptions(sys.argv, ['s3_input_path','s3_output_path', 'metadata_path', 'environment_path','JOB_NAME', 'environment', 'sns_arn'])
+    environment_path = args['environment_path']
+    s3_input_path = args['s3_input_path']
+    job_name = args['JOB_NAME']
+    environment = args['environment']
+    sns_arn = args['sns_arn']
+    job_run_id = args['JOB_RUN_ID']
+
+    sns_client = boto3.client('sns')
+
+    def union_all(*dfs):
+        return reduce(DataFrame.union, dfs)
+
+    def has_column(df, col):
+        try:
+            df[col]
+            return True
+        except AnalysisException:
+            return False
+
+    @udf(returnType = pt.StringType())
+    def format_col(data):
+        return "~".join(s for s in data ).split("?^")
+
+    def agg_col_val_format(df,col_name,col_key, join_df):
+        
+        """[summary]
+        """
+
+        df = df.groupBy(col_key, 'versionId').agg(collect_set(col_name).alias(col_name))
+        #df = df.groupBy(col_key).agg(F.first(col_name).alias(col_name))
+
+        df = df.withColumn(col_name,format_col(df[col_name]))
+        df = df.withColumn(col_name, when((length(col(col_name)) > 2), col(col_name)).otherwise(lit(None)))
+        if df.rdd.isEmpty():
+            join_df = join_df.drop(col_name).join(df, [col_key, 'versionId'], 'leftouter')
+        else:
+            join_df = join_df.drop(col_name).join(df, [col_key, 'versionId'], 'outer')
+        return join_df
+
+    def col_check(df, col_name: str, col_rename: str):
+
+        if has_column(df, col_name):
+            final_df = df.withColumn(col_rename, col(col_name))
+        else:
+            # Adjust types according to your needs
+            final_df = df.withColumn(col_rename, lit(None).cast("string"))
+
+        return final_df 
+
+
+    def get_last_date(spark):
+        try:
+            licensee_data = args["metadata_path"]
+            metadata_df = spark.read.option("header", True).csv(licensee_data)
+            metadata_df = metadata_df.where(metadata_df.job_name_met == 'provider_organization')
+            last_date = metadata_df.select('last_date').agg({'last_date': 'max'}).collect()[0][0]
+        except Exception as e:
+            msg = 'Error reading metadata file or Metadata file has no data, check the metadata file'
+            raise Exception(msg).with_traceback(e.__traceback__)
+        return last_date
+
+
+
+    def current_run_date(current_pdate):
+        try:
+            sys_date=datetime.today()
+            print('System Date-',sys_date)
+            if current_pdate >= sys_date:
+                raise Exception(f'The current_pdate -{current_pdate} value is greater than or equal to system date hence Exiting....' )
+        except Exception as e: 
+                raise e
+        
+
+    def process_data(spark, last_date):
+        """[summary]
+
+        :param spark: [description]
+        :type spark: [type]
+        """
+        if last_date is not None:
+            last_date = last_date
+            print(f'last_date from workflow trigger-- {last_date}')
+        else:
+            last_date = get_last_date(spark)
+        
+        # schema = StructType([StructField('address', ArrayType(StructType([StructField('city', StringType(), True), StructField('country', StringType(), True), StructField('district', StringType(), True), StructField('line', ArrayType(StringType(), True), True), StructField('postalCode', StringType(), True), StructField('state', StringType(), True), StructField('type', StringType(), True), StructField('use', StringType(), True)]), True), True), StructField('extension', ArrayType(StructType([StructField('extension', ArrayType(StructType([StructField('url', StringType(), True), StructField('valueCodeableConcept', StructType([StructField('coding', ArrayType(StructType([StructField('code', StringType(), True)]), True), True)]), True), StructField('valuePeriod', StructType([StructField('end', StringType(), True), StructField('start', StringType(), True)]), True), StructField('valueReference', StructType([StructField('reference', StringType(), True)]), True)]), True), True), StructField('url', StringType(), True)]), True), True), StructField('id', StringType(), True), StructField('meta', StructType([StructField('lastUpdated', StringType(), True), StructField('profile', ArrayType(StringType(), True), True), StructField('source', StringType(), True), StructField('versionId', StringType(), True)]), True), StructField('name', StringType(), True), StructField('resourceType', StringType(), True), StructField('telecom', ArrayType(StructType([StructField('system', StringType(), True), StructField('use', StringType(), True), StructField('value', StringType(), True)]), True), True), StructField('text', StructType([StructField('div', StringType(), True), StructField('status', StringType(), True)]), True),StructField('identifier', ArrayType(StructType([StructField('period', StructType([StructField('end', StringType(), True), StructField('start', StringType(), True)]), True), StructField('type', StructType([StructField('coding', ArrayType(StructType([StructField('code', StringType(), True), StructField('display', StringType(), True), StructField('system', StringType(), True)]), True), True)]), True), StructField('value', StringType(), True)]), True), True)])
+        schema = StructType([StructField('address', ArrayType(StructType([StructField('city', StringType(), True), StructField('country', StringType(), True), StructField('district', StringType(), True), StructField('line', ArrayType(StringType(), True), True), StructField('postalCode', StringType(), True), StructField('state', StringType(), True), StructField('type', StringType(), True), StructField('use', StringType(), True)]), True), True), StructField('extension', ArrayType(StructType([StructField('extension', ArrayType(StructType([StructField('url', StringType(), True), StructField('valueCodeableConcept', StructType([StructField('coding', ArrayType(StructType([StructField('code', StringType(), True)]), True), True)]), True), StructField('valuePeriod', StructType([StructField('end', StringType(), True), StructField('start', StringType(), True)]), True), StructField('valueReference', StructType([StructField('reference', StringType(), True)]), True)]), True), True), StructField('url', StringType(), True)]), True), True), StructField('id', StringType(), True), StructField('meta', StructType([StructField('lastUpdated', StringType(), True), StructField('profile', ArrayType(StringType(), True), True), StructField('source', StringType(), True), StructField('versionId', StringType(), True)]), True), StructField('name', StringType(), True), StructField('resourceType', StringType(), True), StructField('telecom', ArrayType(StructType([StructField('system', StringType(), True), StructField('use', StringType(), True), StructField('value', StringType(), True)]), True), True), StructField('text', StructType([StructField('div', StringType(), True), StructField('status', StringType(), True)]), True),StructField('identifier', ArrayType(StructType([StructField('period', StructType([StructField('end', StringType(), True), StructField('start', StringType(), True)]), True), StructField('system',StringType(),True), StructField('type', StructType([StructField('coding', ArrayType(StructType([StructField('code', StringType(), True), StructField('display', StringType(), True), StructField('system', StringType(), True)]), True), True)]), True), StructField('value', StringType(), True)]), True), True)])
+
+        if isinstance(last_date, str):
+
+            last_pdate = datetime.strptime(last_date, "%Y-%m-%d")
+            current_pdate = last_pdate + timedelta(1)
+            current_run_date(current_pdate)
+            year= current_pdate.strftime("%Y")
+            month = current_pdate.strftime("%m")
+            day= current_pdate.strftime("%d")
+            file_path = f"{s3_input_path}year={year}/month={month}/day={day}"
+            try:
+                print(f"Reading data from partition - {file_path}")
+                cols=["year","month","day"]
+                prov_org_df = spark.read.schema(schema).json(file_path, multiLine=True) \
+                                .withColumn('year', F.lit(year)).withColumn('month', F.lit(month)).withColumn('day', F.lit(day))
+                prov_org_df = prov_org_df.withColumn("pdate",concat_ws("-",*cols).cast("date"))
+                if len(prov_org_df.head(1)) > 0:
+                    data_avail_flag = True
+                else:
+                    print(f'path - {file_path} exists but no data')
+                    data_avail_flag = False
+            except:
+                data_avail_flag = False
+                print(f"File path - {file_path} doesn't exist.")
+
+
+        if data_avail_flag:          
+            prov_org_df = prov_org_df.withColumn("versionId", prov_org_df.meta.versionId) \
+                            .withColumn("porg_profile", explode_outer(prov_org_df.meta.profile)) \
+                            .withColumn('ORGANIZATION_LAST_UPDATE_DATE',prov_org_df.meta.lastUpdated ) \
+                            .drop(prov_org_df.meta) \
+                            .withColumn("provorg_identifier", explode_outer(prov_org_df.identifier)) \
+                            .withColumn("provorg_identifier_explode_period_start", col("provorg_identifier.period.start")) \
+                            .withColumn("provorg_identifier_explode_period_end", col("provorg_identifier.period.end"))\
+                            .withColumn("provorg_identifier_type_coding_explode", explode_outer(col("provorg_identifier.type.coding"))) \
+                            .withColumn("provorg_identifier_type_coding_code", col("provorg_identifier_type_coding_explode.code")) \
+                            .withColumn("identifier_type_coding_display", col("provorg_identifier_type_coding_explode.display")) \
+                            .withColumn("identifier_value", col("provorg_identifier.value")) \
+                            .withColumn("identifier_system", col("provorg_identifier.system")) \
+                            .drop(col("provorg_identifier_type_coding_explode")) \
+                            .drop(col("provorg_identifier")) \
+                            .drop(prov_org_df.identifier) \
+                            .withColumn("ORG_NAME_FULL_STD", prov_org_df.name) \
+                            .withColumn("extension_explode", explode_outer(prov_org_df.extension)) \
+                .withColumn("extension_extension_explode", explode_outer(col("extension_explode.extension"))) \
+                .withColumn("extension_extension_url", col("extension_extension_explode.url")) \
+                .withColumn("extension_extension_value_reference", col("extension_extension_explode.valueReference.reference")) \
+                .withColumn("RECOGNITION_PERIOD_START", col("extension_extension_explode.valuePeriod.start")) \
+                .withColumn("RECOGNITION_PERIOD_END", col("extension_extension_explode.valuePeriod.end")) \
+                .withColumn("extension_extension_value_codeable_concept_coding_explode", explode_outer(col("extension_extension_explode.valueCodeableConcept.coding"))) \
+                .withColumn("extension_extension_value_codeable_concept_coding_code", col("extension_extension_value_codeable_concept_coding_explode.code")) \
+                .drop(prov_org_df.extension) \
+                .drop(col("extension_explode")) \
+                .drop(col("extension_extension_explode")) \
+                .drop(col('extension_extension_value_reference')) \
+                .drop(col('extension_extension_value_codeable_concept_coding_explode')) \
+                .withColumn("loc_telecom", explode_outer(prov_org_df.telecom)) \
+                                            .withColumn("tel_system", col("loc_telecom.system")) \
+                                            .withColumn("tel_value", col("loc_telecom.value")) \
+                                            .withColumn("tel_use", col("loc_telecom.use")) \
+                                            .drop(prov_org_df.telecom) \
+                                            .drop(col("loc_telecom")) \
+
+            cols = ['prog_profile_0', 'prog_profile_1']
+            prov_org_df = prov_org_df.withColumn('porg_profile', split(prov_org_df['porg_profile'], '/').getItem(4))
+            prov_org_df = prov_org_df.withColumn('prog_profile_0', split(prov_org_df['porg_profile'], '-').getItem(0)) \
+                                    .withColumn('prog_profile_1', split(prov_org_df['porg_profile'], '-').getItem(1)) \
+                                    .withColumn('porg_profile',concat_ws('-', *cols)) \
+                                    .drop('prog_profile_0', 'prog_profile_1')
+
+            extracted_df = col_check(df=prov_org_df, col_name='prov_org_df.address', col_rename='address')
+            extracted_df = col_check(df=extracted_df, col_name='prov_org_df.text', col_rename='text')
+        
+            extracted_df = extracted_df.withColumn('recognizing_Entity', when((extracted_df['extension_extension_url'] == 'recognizingEntity'), (extracted_df['extension_extension_value_codeable_concept_coding_code']))) \
+                                    .withColumn('recognition_Value', when((extracted_df['extension_extension_url'] == 'recognitionValue'), (extracted_df['extension_extension_value_codeable_concept_coding_code']))) \
+                                    .withColumn('recognition_Type', when((extracted_df['extension_extension_url'] == 'recognitionType'), (extracted_df['extension_extension_value_codeable_concept_coding_code']))) \
+                                    .withColumn('recognition_Web_Address', when((extracted_df['extension_extension_url'] == 'recognition_Web_Address'), (extracted_df['extension_extension_value_codeable_concept_coding_code'])))
+
+            concat_df  = extracted_df.select('id','versionId', 'RECOGNITION_PERIOD_START', 'RECOGNITION_PERIOD_END','recognizing_Entity',\
+            'recognition_Value', 'recognition_Type', 'recognition_Web_Address')
+            concat_df = concat_df.groupBy('id', 'versionId').agg(F.first(concat_df['recognizing_Entity'], True).alias('recognizing_Entity'), \
+                                                    F.first(concat_df['recognition_Value'], True).alias('recognition_Value'), \
+                                                    F.first(concat_df['recognition_Type'], True).alias('recognition_Type'), \
+                                                    F.first(concat_df['recognition_Web_Address'], True).alias('recognition_Web_Address'), \
+                                                    F.first(concat_df['RECOGNITION_PERIOD_START'], True).alias('RECOGNITION_PERIOD_START'), \
+                                                    F.first(concat_df['RECOGNITION_PERIOD_END'], True).alias('RECOGNITION_PERIOD_END'))
+            
+            concat_df = concat_df.withColumn('RECOGNITION', concat_ws(',', coalesce(col('recognizing_Entity'), lit('')), coalesce(col('recognition_Value'), lit('')),\
+                                coalesce(col('recognition_Type'), lit('')), coalesce(col('RECOGNITION_PERIOD_START'), lit('')), coalesce(col('RECOGNITION_PERIOD_END'), lit('')), coalesce(col('recognition_Web_Address'), lit('')))).drop('RECOGNITION_PERIOD_START', 'RECOGNITION_PERIOD_END','recognizing_Entity',\
+                                'recognition_Value', 'recognition_Type', 'recognition_Web_Address')
+
+            extracted_df = agg_col_val_format(df=concat_df,col_name='RECOGNITION',col_key='id', join_df=extracted_df)
+            extracted_df = extracted_df.withColumn('RECOGNITION', when((length(col('RECOGNITION')) > 7), col('RECOGNITION')).otherwise(lit(None)))                                
+            
+            if extracted_df.filter(~extracted_df.recognizing_Entity.isin('00')).count() >0:
+                extracted_df = extracted_df.withColumn('PROV_HQM_DATA_AVL_IND', lit('Y'))
+            else:
+                extracted_df = extracted_df.withColumn('PROV_HQM_DATA_AVL_IND', lit('N'))
+
+            if extracted_df.filter(~extracted_df.recognition_Value.isin('00')).count() >0:
+                extracted_df = extracted_df.withColumn('PROV_BDTC_IND', lit('Y'))
+                extracted_df = extracted_df.withColumn('PROV_RCGNTN_QLTY_DATA_AVL_IND', lit('Y'))
+            else:
+                extracted_df = extracted_df.withColumn('PROV_BDTC_IND', lit('N'))
+                extracted_df = extracted_df.withColumn('PROV_RCGNTN_QLTY_DATA_AVL_IND', lit('N'))
+                
+            # extracted_df.select('p_lastupdated').show(5, truncate = False)
+            # extracted_df.select('p_lastupdated').printSchema()
+            print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+            
+            prov_org_df = extracted_df
+
+            #identifier
+            location_df = prov_org_df.withColumn('TAX_ID', when((prov_org_df['provorg_identifier_type_coding_code'] == 'TAX'), (prov_org_df['identifier_value']))) \
+                                    .withColumn('PMI', when((prov_org_df['identifier_system'] == 'http://bpd.bcbs.com/Organization/MasterIdentifier'), (prov_org_df['identifier_value']))) \
+                                    .withColumn('PROVIDER_NPI', when((prov_org_df['provorg_identifier_type_coding_code'] == 'NPI'), (prov_org_df['identifier_value']))) \
+                                    .withColumn('PROV_MEDICARE_NUMBER', when((prov_org_df['provorg_identifier_type_coding_code'] == 'CCN'), (prov_org_df['identifier_value']))) \
+                                    .withColumn('PROVIDER_NUMBER', when((prov_org_df['provorg_identifier_type_coding_code'] == 'PRN'), (prov_org_df['identifier_value']))) \
+                                    .withColumn('PROVIDER_X_REFERENCE_value',
+                                                    when((extracted_df['provorg_identifier_type_coding_code'] == 'PCRN'), (extracted_df['identifier_value']))) \
+                                    .withColumn('PROVIDER_X_REFERENCE_period_start',
+                                                when((extracted_df['provorg_identifier_type_coding_code'] == 'PCRN'), (extracted_df['provorg_identifier_explode_period_start']))) \
+                                    .withColumn('PROVIDER_X_REFERENCE_period_end',
+                                                when((extracted_df['provorg_identifier_type_coding_code'] == 'PCRN'), (extracted_df['provorg_identifier_explode_period_end']))) \
+                                    
+            extract_df = location_df.select('id', 'versionId', 'tel_system', 'tel_value','tel_use')
+            extract_df = extract_df.withColumn('PROVIDER_PHONE_NUMBER', when((location_df['tel_system'] == 'phone'), (location_df['tel_value']))) \
+                                    .withColumn('PROVIDER_WEB_ADDRESS', when((location_df['tel_system'] == 'url'), (location_df['tel_value']))) \
+                                    .withColumn('PROVIDER_FAX_NUMBER', when((location_df['tel_system'] == 'fax'), (location_df['tel_value']))) \
+                                    .withColumn('PROVIDER_EMAIL_ADDRESS', when((location_df['tel_system'] == 'email'), (location_df['tel_value']))) \
+                                    .withColumn('PROVIDER_PAGER_NUMBER', when((location_df['tel_system'] == 'pager'), (location_df['tel_value']))) \
+                                    .withColumn('PROVIDER_SMS_MESSAGE', when((location_df['tel_system'] == 'sms'), (location_df['tel_value']))) \
+                                    
+            extract_df.write.mode('overwrite').parquet(f's3://{environment_path}/tmp/org_extract_df/')
+            extract_df = spark.read.parquet(f's3://{environment_path}/tmp/org_extract_df/')
+            #Adding PROVIDER_TDD Column Deployment- March 2023
+            ident_x_ref_tel_df = agg_col_val_format(df=extract_df,col_name='PROVIDER_PHONE_NUMBER',col_key='id', join_df=location_df)
+            ident_x_ref_tel_df = agg_col_val_format(df=extract_df,col_name='PROVIDER_WEB_ADDRESS',col_key='id', join_df=ident_x_ref_tel_df)
+            ident_x_ref_tel_df = agg_col_val_format(df=extract_df,col_name='PROVIDER_FAX_NUMBER',col_key='id', join_df=ident_x_ref_tel_df)
+            ident_x_ref_tel_df = agg_col_val_format(df=extract_df,col_name='PROVIDER_EMAIL_ADDRESS',col_key='id', join_df=ident_x_ref_tel_df)
+            ident_x_ref_tel_df = agg_col_val_format(df=extract_df,col_name='PROVIDER_PAGER_NUMBER',col_key='id', join_df=ident_x_ref_tel_df)
+            ident_x_ref_tel_df = agg_col_val_format(df=extract_df,col_name='PROVIDER_SMS_MESSAGE',col_key='id', join_df=ident_x_ref_tel_df)
+            ident_x_ref_tel_df = ident_x_ref_tel_df.withColumn('PROVIDER_TDD', when(((location_df['tel_system'] == 'other') & (location_df['tel_use']=='work')), (location_df['tel_value'])))
+            extract_df = ident_x_ref_tel_df.drop('tel_system', 'tel_value', 'tel_use')
+
+
+            npi_df = extract_df.select('id', 'versionId','PROVIDER_NPI')
+            extract_df = extract_df.drop('PROVIDER_NPI','identifier_system')
+
+            identifier_df = agg_col_val_format(df=npi_df,col_name='PROVIDER_NPI',col_key='id', join_df=extract_df)
+            
+            x_ref_df = identifier_df.select('id', 'versionId', 'PROVIDER_X_REFERENCE_value', 'PROVIDER_X_REFERENCE_period_start', 'PROVIDER_X_REFERENCE_period_end').na.drop(subset=['PROVIDER_X_REFERENCE_value'])
+            
+        
+            x_ref_df = x_ref_df.withColumn('PROVIDER_X_REFERENCE', concat_ws(',', coalesce(col('PROVIDER_X_REFERENCE_value'), lit('')), coalesce(col('PROVIDER_X_REFERENCE_period_start'), lit('')), \
+                                        coalesce(col('PROVIDER_X_REFERENCE_period_end'), lit('')))).drop('PROVIDER_X_REFERENCE_value', 'PROVIDER_X_REFERENCE_period_start', 'PROVIDER_X_REFERENCE_period_end')
+            identifier_df = identifier_df.drop('PROVIDER_X_REFERENCE_value', 'PROVIDER_X_REFERENCE_period_start', 'PROVIDER_X_REFERENCE_period_end'\
+                                                'identifier_explode_period_start', 'identifier_explode_period_end')
+            ident_x_ref_df = agg_col_val_format(df=x_ref_df,col_name='PROVIDER_X_REFERENCE',col_key='id', join_df=identifier_df).drop('identifier_explode_period_start', 'identifier_explode_period_end')
+
+            extract_df = ident_x_ref_df.drop('name',
+                            'provorg_identifier_type_coding_code',
+                            'identifier_type_coding_display',
+                            'identifier_value',
+                            'provorg_text_status', 'search', 'telecom', 'address', 'text', 'extension_extension_url', 'extension_extension_value_codeable_concept_coding_code',
+                            'tel_system', 'tel_value', 'tel_use',
+                            'RECOGNITION_PERIOD_START', 'RECOGNITION_PERIOD_END','recognizing_Entity',\
+            'recognition_Value', 'recognition_Type', 'recognition_Web_Address', 'provorg_identifier_explode_period_start', 'provorg_identifier_explode_period_end',
+            'PROVIDER_X_REFERENCE_period_start','provider_x_reference_period_end')
+
+                            
+            flattened_df = extract_df.distinct()
+            col_list = flattened_df.columns 
+            for each_col in col_list:
+                if each_col in ['id', 'versionId','year', 'month', 'day']:
+                    pass
+                else:
+                    flattened_df = flattened_df.withColumn('flag', F.when(F.col(each_col).isNull(),F.lit(0)).otherwise(F.lit(1)))
+                    flattened_df = flattened_df.withColumn(each_col , F.last(each_col,True).over(w.partitionBy('id', 'versionId','year', 'month', 'day').orderBy(F.col('flag').desc()).rowsBetween(-sys.maxsize,0))).drop('flag')  
+                    flattened_df = flattened_df.distinct()
+
+            df_output = flattened_df.distinct()             
+
+            output_bucket = args["s3_output_path"]
+            df_output = df_output.withColumn('month', F.when(F.length(F.col('month')) == 1, F.concat(F.lit('0'), F.col('month'))).otherwise(F.col('month'))) \
+                                .withColumn('day', F.when(F.length(F.col('day')) == 1, F.concat(F.lit('0'), F.col('day'))).otherwise(F.col('day')))
+    
+            df_output = df_output.drop('pdate')
+        
+            df_output.write.mode('overwrite').format('parquet').partitionBy('year', 'month', 'day').option("partitionOverwriteMode", "dynamic").save(output_bucket)
+            print('Organization Data loaded into partition')
+
+        else:
+            print('Provider_organization data not available at source - {}'.format(datetime.now()))
+        return current_pdate
+
+    if __name__ == "__main__":
+        run_date = datetime.today()
+        current_pdate = None
+        glueContext = GlueContext(SparkContext.getOrCreate())
+        spark = glueContext.spark_session        
+        current_pdate = process_data(spark, last_date)
+        current_pdate = datetime.strptime((current_pdate).strftime('%Y-%m-%d'),"%Y-%m-%d").date()
+
+        # Prepare metadata table
+        print("Initiating processing for metadata table")
+        processing_time = datetime.now()
+        job_name_met = 'provider_organization'
+        print(f"last+p_date {current_pdate} ----------- processing_time {processing_time} ---------")
+        meta_data_path = args["metadata_path"]
+        meta_data_df = spark.createDataFrame([(current_pdate, processing_time, job_name_met)],
+                                    ['last_date', 'run_date', 'job_name_met'])
+        meta_data_df.coalesce(1).write.mode('append').format('csv').option('header', 'true').save(meta_data_path)
+        print("Processed metadata table")
+
+
+except Exception as e:
+    # preparing data for SNS notification
+    status = 'FINISHED_FAILURE'
+    if current_pdate: 
+        message = (f' Job_Name: {job_name}\n Status: {status} \n environment: {environment} \n Job_Run_ID: {job_run_id} \n Data_Date: {current_pdate} \
+        \n Run_Date: {run_date} \n ERROR: {e}')
+    else: 
+        message = (f' Job_Name: {job_name}\n Status: {status} \n environment: {environment} \n Job_Run_ID: {job_run_id} \n Run_Date: {run_date} \n ERROR: {e}')
+    subject = (f'[{environment}] {job_name} {status}')
+    sns_client.publish(TopicArn=sns_arn,
+        Message=message,
+        Subject=subject)
+    raise e

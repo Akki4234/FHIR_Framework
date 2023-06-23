@@ -1,0 +1,72 @@
+{
+	"resourceType": "HealthcareService",
+	"id": "283-hs04HealthCareServiceNewPatientAcceptingNeg",
+	"meta": {
+		"versionId": "1",
+		"lastUpdated": "2022-08-25T14:56:40.090-05:00",
+		"profile": [
+			"http://bpd.bcbs.com/StructureDefinition/bpd-healthcareservice-plan-submission",
+			"http://bpd.bcbs.com/StructureDefinition/"
+		],
+		"Features":[
+			"This is trial",
+			"Just trying",
+			"Testing replicacy"
+		],
+		"healthdata":[
+			"health check",
+			"This is only check"
+			
+		]
+	},
+	"extension" : [
+		{
+		  "url" : "http://bpd.bcbs.com/StructureDefinition/geocodereturn",
+		  "valueCodeableConcept" : {
+			"coding" : [
+			  {
+				"system" : "http://bpd.bcbs.com/CodeSystem/BCBSGeocodeReturnCodeCS",
+				"code" : "Z",
+				"display" : "Street level"
+			  }
+			]
+		  }
+		},
+		{
+		  "url" : "http://bpd.bcbs.com/StructureDefinition/servicearea",
+		  "valueCodeableConcept" : {
+			"coding" : [
+			  {
+				"system" : "http://bpd.bcbs.com/CodeSystem/BCBSServiceAreaCS",
+				"code" : "L",
+				"display" : "Licensed"
+			  }
+			]
+		  }
+		},
+		{
+		  "url" : "http://bpd.bcbs.com/StructureDefinition/officelanguage",
+		  "valueCodeableConcept" : {
+			"coding" : [
+			  {
+				"system" : "urn:ietf:bcp:47",
+				"code" : "en",
+				"display" : "English"
+			  }
+			]
+		  }
+		},
+		{
+		  "url" : "http://bpd.bcbs.com/StructureDefinition/officelanguage",
+		  "valueCodeableConcept" : {
+			"coding" : [
+			  {
+				"system" : "urn:ietf:bcp:47",
+				"code" : "it",
+				"display" : "Italy"
+			  }
+			]
+		  }
+		}
+	  ]
+}

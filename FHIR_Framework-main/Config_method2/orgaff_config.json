@@ -1,0 +1,144 @@
+{
+  "column_mapping": [
+    {
+      "column_name": "PCP_SELECTABILITY_CODE",
+      "mapping_rule": {
+        "source_column": "extension_extension_url",
+        "match_value": "pcpSelectabilityCode",
+        "target_column": "extension_extension_valueCodeableConcept_coding_code"
+      },
+      "column_type": "array"
+    },
+    {
+      "column_name": "ACCEPT_NEW_PATIENTS",
+      "mapping_rule": {
+        "source_column": "extension_extension_url",
+        "match_value": "acceptingPatients",
+        "target_column": "extension_extension_valueCodeableConcept_coding_code"
+      },
+      "column_type": "array"
+    },
+    {
+      "column_name": "PROVIDER_TERMINATION_CODE",
+      "mapping_rule": {
+        "source_column": "extension_valueCodeableConcept_coding_system",
+        "match_value": "http://bpd.bcbs.com/CodeSystem/BCBSProviderTerminationReasonCS",
+        "target_column": "extension_valueCodeableConcept_coding_code"
+      },
+      "column_type": "array"
+    },
+    {
+      "column_name": "MEMB_SELF_ATRBTN_ACPTNC_IND",
+      "mapping_rule": {
+        "source_column": "extension_extension_url",
+        "match_value": "providerAcceptsMemberSelectAttributionIndicator",
+        "target_column": "extension_extension_value_boolean"
+      },
+      "column_type": "array"
+    }, 
+    {
+      "column_name": "PROVIDER_CONTRACT_STATUS",
+      "mapping_rule": {
+        "source_column": "extension_url",
+        "match_value": "http://bpd.bcbs.com/StructureDefinition/provcontract",
+        "target_column": "extension_valueBoolean"
+      },
+      "column_type": "array"
+    },
+    {
+      "column_name": "network_id",
+      "mapping_rule": {
+        "source_column": "extension_url",
+        "match_value": "http://bpd.bcbs.com/StructureDefinition/networkreference",
+        "target_column": "extension_valueReference_reference"
+      },
+      "column_type": "Nonarray"
+    },
+    {
+      "column_name": "licensee_id",
+      "mapping_rule": {
+        "source_column": "extension_url",
+        "match_value": "http://bpd.bcbs.com/StructureDefinition/licenseereference",
+        "target_column": "extension_valueReference_refernce"
+      },
+      "column_type": "array"
+    },
+    {
+      "column_name": "PROV_TIER_DESIG",
+      "mapping_rule": {
+        "source_column": "extension_url",
+        "match_value": "http://bpd.bcbs.com/StructureDefinition/provtierdesig",
+        "target_column": "extension_valueCodeableConcept_coding_code"
+      },
+      "column_type": "array"
+    },
+    {
+      "column_name": "VBP",
+      "mapping_rule": {
+        "source_column": "extension_extension_url",
+        "match_value": "valueBasedProgramIdentifier",
+        "target_column": "extension_extension_value_identifier_value"
+      },
+      "column_type": "array"
+    },
+    {
+      "column_name": "PROVIDER_ENTITY_IDENTIFIER",
+      "mapping_rule": {
+        "source_column": "identifier_type_coding_code",
+        "match_value": "PEI",
+        "target_column": "identifier_explode_value"
+      },
+      "column_type": "array"
+    },
+    {
+      "column_name": "PROVIDER_TAXONOMY_CODE",
+      "mapping_rule": {
+        "source_column": "specialty_coding_system",
+        "match_value": "http://nucc.org/provider-taxonomy",
+        "target_column": "specialty_coding_code"
+      },
+      "column_type": "array"
+    },
+    {
+      "column_name": "ENTITY_TYPE_CODE",
+      "mapping_rule": {
+        "source_column": "code_coding_system",
+        "match_value": "http://bpd.bcbs.com/CodeSystem/BCBSProviderEntityTypeCS",
+        "target_column": "code_coding_code"
+      },
+      "column_type": "array"
+    },
+    {
+      "column_name": "PROVIDER_TYPE_CODE",
+      "mapping_rule": {
+        "source_column": "code_coding_system",
+        "match_value": "http://bpd.bcbs.com/CodeSystem/BCBSProviderTypeCS",
+        "target_column": "code_coding_code"
+      },
+      "column_type": "array"
+    },
+    {
+      "column_name": "PROV_TYPE_NAME",
+      "mapping_rule": {
+        "source_column": "code_coding_system",
+        "match_value": "http://bpd.bcbs.com/CodeSystem/BCBSProviderTypeCS",
+        "target_column": "code_coding_display"
+      },
+      "column_type": "array"
+    },
+    {
+      "column_name": "location_reference",
+      "mapping_rule": {
+        "target_column": "location_reference"
+      },
+      "column_type": "NonArray"
+    },
+    {
+      "column_name": "healthcareService_reference",
+      "mapping_rule": {
+        "target_column": "healthcareService_reference"
+      },
+      "column_type": "nonarray"
+    }
+  ]
+}

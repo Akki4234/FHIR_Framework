@@ -1,0 +1,30 @@
+Format  "column_no":["column_name", "source_column", "match_value", "target_column","columntype"]
+
+
+
+{
+    "column_1": ["id", null, null, "id", "array"],
+    "column_2": ["versionId", null, null, "meta_versionId", "array"],
+    "column_3": ["resourceType", null, null, "resourceType", "array"],
+    "column_4": ["ORGANIZATION_LAST_UPDATE_DATE", null, null, "meta_lastUpdated", "array"],
+    "column_5": ["ORG_NAME_FULL_STD", null, null, "name", "array"],
+    "column_6": ["recognizing_Entity", "extension_extension_url", "recognizingEntity", "extension_extension_valueCodeableConcept_coding_code", "array"],
+    "column_7": ["recognition_Value", "extension_extension_url", "recognitionValue", "extension_extension_valueCodeableConcept_coding_code", "array"],
+    "column_8": ["recognition_Type", "extension_extension_url", "recognitionType", "extension_extension_valueCodeableConcept_coding_code", "array"],
+    "column_9": ["recognition_Web_Address", "extension_extension_url", "recognition_Web_Address", "extension_extension_valueCodeableConcept_coding_code", "array"],
+    "column_10": ["TAX_ID", "identifier_type_coding_code", "TAX", "identifier_value", "array"],
+    "column_11": ["PMI", "identifier_system", "http://bpd.bcbs.com/Organization/MasterIdentifier", "identifier_value", "array"],
+    "column_12": ["PROVIDER_NPI", "identifier_type_coding_code", "NPI", "identifier_value", "array"],
+    "column_13": ["PROV_MEDICARE_NUMBER", "identifier_type_coding_code", "CCN", "identifier_value", "array"],
+    "column_14": ["PROVIDER_NUMBER", "identifier_type_coding_code", "PRN", "identifier_value", "array"],
+    "column_15": ["PROVIDER_X_REFERENCE_value", "identifier_type_coding_code", "PCRN", "identifier_value", "array"],
+    "column_16": ["PROVIDER_X_REFERENCE_period_start", "provorg_identifier_type_coding_code", "PCRN", "provorg_identifier_explode_period_start", "array"],
+    "column_17": ["PROVIDER_X_REFERENCE_period_end", "provorg_identifier_type_coding_code", "PCRN", "provorg_identifier_explode_period_end", "array"],
+    "column_18": ["PROVIDER_PHONE_NUMBER", "telecom_system", "phone", "telecom_value", "array"],
+    "column_19": ["PROVIDER_WEB_ADDRESS", "telecom_system", "url", "telecom_value", "array"],
+    "column_20": ["PROVIDER_FAX_NUMBER", "telecom_system", "fax", "telecom_value", "array"],
+    "column_21": ["PROVIDER_EMAIL_ADDRESS", "telecom_system", "email", "telecom_value", "array"],
+    "column_22": ["PROVIDER_PAGER_NUMBER", "telecom_system", "pager", "telecom_value", "array"],
+    "column_23": ["PROVIDER_SMS_MESSAGE", "telecom_system", "sms", "telecom_value", "array"]
+}
+  

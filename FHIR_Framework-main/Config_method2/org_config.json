@@ -1,0 +1,201 @@
+{
+  "column_mapping": [
+    {
+      "column_name": "id",
+      "mapping_rule": {
+        "target_column": "id"
+      },
+      "column_type": "array"
+    },
+    {
+      "column_name": "versionId",
+      "mapping_rule": {
+        "target_column": "meta_versionId"
+      },
+      "column_type": "array"
+    },
+    {
+      "column_name": "resourceType",
+      "mapping_rule": {
+        "target_column": "resourceType"
+      },
+      "column_type": "array"
+    },
+    {
+      "column_name": "ORGANIZATION_LAST_UPDATE_DATE",
+      "mapping_rule": {
+        "target_column": "meta_lastUpdated"
+      },
+      "column_type": "array"
+    },
+    {
+      "column_name": "ORG_NAME_FULL_STD",
+      "mapping_rule": {
+        "target_column": "name"
+      },
+      "column_type": "array"
+    },
+    {
+      "column_name": "recognizing_Entity",
+      "mapping_rule": {
+        "source_column": "extension_extension_url",
+        "match_value": "recognizingEntity",
+        "target_column": "extension_extension_valueCodeableConcept_coding_code"
+      },
+      "column_type": "array"
+    },
+    {
+      "column_name": "recognition_Value",
+      "mapping_rule": {
+        "source_column": "extension_extension_url",
+        "match_value": "recognitionValue",
+        "target_column": "extension_extension_valueCodeableConcept_coding_code"
+      },
+      "column_type": "array"
+    },
+    {
+      "column_name": "recognition_Type",
+      "mapping_rule": {
+        "source_column": "extension_extension_url",
+        "match_value": "recognitionType",
+        "target_column": "extension_extension_valueCodeableConcept_coding_code"
+      },
+      "column_type": "array"
+    },
+    {
+      "column_name": "recognition_Web_Address",
+      "mapping_rule": {
+        "source_column": "extension_extension_url",
+        "match_value": "recognition_Web_Address",
+        "target_column": "extension_extension_valueCodeableConcept_coding_code"
+      },
+      "column_type": "array"
+    },
+    {
+      "column_name": "TAX_ID",
+      "mapping_rule": {
+        "source_column": "identifier_type_coding_code",
+        "match_value": "TAX",
+        "target_column": "identifier_value"
+      },
+      "column_type": "array"
+    },
+    {
+      "column_name": "PMI",
+      "mapping_rule": {
+        "source_column": "identifier_system",
+        "match_value": "http://bpd.bcbs.com/Organization/MasterIdentifier",
+        "target_column": "identifier_value"
+      },
+      "column_type": "array"
+    },
+    {
+      "column_name": "PROVIDER_NPI",
+      "mapping_rule": {
+        "source_column": "identifier_type_coding_code",
+        "match_value": "NPI",
+        "target_column": "identifier_value"
+      },
+      "column_type": "Nonarray"
+    },
+    {
+      "column_name": "PROV_MEDICARE_NUMBER",
+      "mapping_rule": {
+        "source_column": "identifier_type_coding_code",
+        "match_value": "CCN",
+        "target_column": "identifier_value"
+      },
+      "column_type": "array"
+    },
+    {
+      "column_name": "PROVIDER_NUMBER",
+      "mapping_rule": {
+        "source_column": "identifier_type_coding_code",
+        "match_value": "PRN",
+        "target_column": "identifier_value"
+      },
+      "column_type": "array"
+    },
+    {
+      "column_name": "PROVIDER_X_REFERENCE_value",
+      "mapping_rule": {
+        "source_column": "identifier_type_coding_code",
+        "match_value": "PCRN",
+        "target_column": "identifier_value"
+      },
+      "column_type": "array"
+    },
+    {
+      "column_name": "PROVIDER_X_REFERENCE_period_start",
+      "mapping_rule": {
+        "source_column": "provorg_identifier_type_coding_code",
+        "match_value": "PCRN",
+        "target_column": "provorg_identifier_explode_period_start"
+      },
+      "column_type": "array"
+    },
+    {
+      "column_name": "PROVIDER_X_REFERENCE_period_end",
+      "mapping_rule": {
+        "source_column": "provorg_identifier_type_coding_code",
+        "match_value": "PCRN",
+        "target_column": "provorg_identifier_explode_period_end"
+      },
+      "column_type": "array"
+    },
+    {
+      "column_name": "PROVIDER_PHONE_NUMBER",
+      "mapping_rule": {
+        "source_column": "contact_telecom_system",
+        "match_value": "phone",
+        "target_column": "contact_telecom_value"
+      },
+      "column_type": "noNarray"
+    },
+    {
+      "column_name": "PROVIDER_WEB_ADDRESS",
+      "mapping_rule": {
+        "source_column": "contact_telecom_system",
+        "match_value": "url",
+        "target_column": "contact_telecom_value"
+      },
+      "column_type": "array"
+    },
+    {
+      "column_name": "PROVIDER_FAX_NUMBER",
+      "mapping_rule": {
+        "source_column": "contact_telecom_system",
+        "match_value": "fax",
+        "target_column": "contact_telecom_value"
+      },
+      "column_type": "array"
+    },
+    {
+      "column_name": "PROVIDER_EMAIL_ADDRESS",
+      "mapping_rule": {
+        "source_column": "contact_telecom_system",
+        "match_value": "email",
+        "target_column": "contact_telecom_value"
+      },
+      "column_type": "array"
+    },
+    {
+      "column_name": "PROVIDER_PAGER_NUMBER",
+      "mapping_rule": {
+        "source_column": "contact_telecom_system",
+        "match_value": "pager",
+        "target_column": "contact_telecom_value"
+      },
+      "column_type": "array"
+    },
+    {
+      "column_name": "PROVIDER_SMS_MESSAGE",
+      "mapping_rule": {
+        "source_column": "contact_telecom_system",
+        "match_value": "sms",
+        "target_column": "contact_telecom_value"
+      },
+      "column_type": "array"
+    }
+  ]
+}
