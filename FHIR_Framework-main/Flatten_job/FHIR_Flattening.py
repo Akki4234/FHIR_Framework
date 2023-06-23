@@ -125,7 +125,7 @@ with open(config_file) as config_file1:
     
 
 small_json = convert_json_to_small_json(json_file_path)
-with open('/workspaces/FHIR_Framework/output/intermidate_results/small_json.json', 'w') as json_file:
+with open('/workspaces/FHIR_Framework/FHIR_Framework-main/output/intermidate_results/small_json.json', 'w') as json_file:
     json.dump(small_json, json_file, indent=4)
 
 df = pd.DataFrame()
@@ -133,7 +133,7 @@ df = pd.DataFrame()
 for keys, value in small_json.items():
     df2 = pd.DataFrame(list(Flatten_Explode(value)))
     df = pd.concat([df, df2], axis=1)
-df.to_csv("/workspaces/FHIR_Framework/output/intermidate_results/intermediate_data.csv")
+df.to_csv("/workspaces/FHIR_Framework/FHIR_Framework-main/output/intermidate_results/intermediate_data.csv")
 
 
 
@@ -145,8 +145,13 @@ for value in mapping:
         key_name = value["column_name"]
         mapping_rule = value['mapping_rule']
         column_type = value["column_type"].lower()
-        if(column_type=='nonarray'):
+        if column_type == 'nonarray':
             cartesian.append(key_name)
+
+        elif column_type not in ['array','nonarray']:
+            print("Execution failed......")
+            print("Error: Please check the column_type in the config file for", value["column_name"])
+            exit()
 
     except KeyError:
         print(f"Execution failed......")
@@ -189,7 +194,7 @@ result_df = pd.DataFrame(columns=aries.keys(), index=[0])
 for key, value in aries.items():
     result_df.loc[0, key] = value.tolist()
 
-result_df.to_csv("/workspaces/FHIR_Framework/output/intermidate_results/array_columns.csv")
+result_df.to_csv("/workspaces/FHIR_Framework/FHIR_Framework-main/output/intermidate_results/array_columns.csv")
 
 result_df = result_df.apply(lambda x: x.apply(lambda y: np.nan if isinstance(y, list) and len(y) == 0 else y))
 
@@ -204,4 +209,5 @@ print(output_file_path)
 
 
 
-#python FHIR_Flattening.py --input /workspaces/FHIR_Framework/Input_data_files/observation/observation_2.json --output /workspaces/FHIR_Framework/output/output.csv --config /workspaces/FHIR_Framework/Config_method2/observation_config.json
+#python FHIR_Flattening.py --input /workspaces/FHIR_Framework/FHIR_Framework-main/Input_data_files/communication/communication.json --output /workspaces/FHIR_Framework/FHIR_Framework-main/output/output.csv --config /workspaces/FHIR_Framework/FHIR_Framework-main/Config_method2/communication_config.json
+#cd FHIR_Framework-main/Flatten_job

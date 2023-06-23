@@ -1,0 +1,105 @@
+{
+    "column_mapping": [
+      {
+        "column_name": "resourceType",
+        "mapping_rule": {
+          "target_column": "resourceType"
+        },
+        "column_type": "array"
+      },
+
+      {
+        "column_name": "id",
+        "mapping_rule": {
+          "target_column": "id"
+        },
+        "column_type": "array"
+      },
+
+      {
+        "column_name": "identifier2",
+        "mapping_rule": {
+          "source_column": "identifier_system",
+          "match_value": "http://www.providerco.com/communication",
+          "target_column": "identifier_value"
+        },
+        "column_type": "array"
+      },
+
+
+      {
+        "column_name": "Active_status",
+        "mapping_rule": {
+          "target_column": "status"
+        },
+        "column_type": "array"
+      },
+
+      {
+        "column_name": "identifier",
+        "mapping_rule": {
+          "source_column": "category_coding_system",
+          "match_value": "http://acme.org/messagetypes",
+          "target_column": "category_coding_code"
+        },
+        "column_type": "array"
+      },
+
+
+      {
+        "column_name": "subject_reference",
+        "mapping_rule": {
+          "target_column": "subject_reference"
+        },
+        "column_type": "array"
+      },
+
+      {
+        "column_name": "about",
+        "mapping_rule": {
+          "source_column": "about_identifier_system",
+          "match_value": "http://happyvalley.com/claim",
+          "target_column": "about_identifier_value"
+        },
+        "column_type": "nonarray"
+      },
+
+      {
+        "column_name": "sent",
+        "mapping_rule": {
+          "target_column": "sent"
+        },
+        "column_type": "array"
+      },
+
+      {
+        "column_name": "reciver",
+        "mapping_rule": {
+          "source_column": "recipient_identifier_system",
+          "match_value": "http://www.jurisdiction.com/insurer",
+          "target_column": "recipient_identifier_value"
+        },
+        "column_type": "Nonarray_Type"
+      },
+      {
+        "column_name": "sender",
+        "mapping_rule": {
+          "source_column": "sender_identifier_system",
+          "match_value": "http://www.jurisdiction.com/provideroffices",
+          "target_column": "sender_identifier_value"
+        },
+        "column_type": "array"
+      },
+
+      {
+        "column_name": "payload",
+        "mapping_rule": {
+          "source_column": "payload_contentAttachment_contentType",
+          "match_value": "application/pdf",
+          "target_column": "payload_contentAttachment_creation"
+        },
+        "column_type": "nonarray"
+      }
+    ]
+  }
+  

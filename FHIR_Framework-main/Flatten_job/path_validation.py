@@ -1,8 +1,7 @@
 import boto3
 import json
 
-access_key_id = 'AKIA4FZVTHHX7QBLIT5X'
-secret_access_key = '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'
+
 def validate_s3_path(path):
     s3 = boto3.resource('s3')
     bucket_name, file_key = parse_s3_path(path)

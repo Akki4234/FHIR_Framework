@@ -1,2 +1,2 @@
-,id,resourceType,ACTIVE_STATUS,category,observation,effectiveDateTime,interpretation,bodySite,component,Reason
-0,['f005'],['Observation'],['final'],[],[],['2013-04-05T10:30:10+01:00'],[],[],[],[]
+,resourceType,id,identifier2,Active_status,identifier,subject_reference,about,sent,reciver,sender,payload
+0,['Communication'],['fm-attachment'],['12345'],['completed'],['SolicitedAttachment'],['Patient/1'],"['12345', 'R3500']",['2016-06-12T18:01:10-08:00'],['123456'],['3456'],"['2010-02-01T10:57:34+01:00', '2010-02-01T11:50:23-05:00']"
