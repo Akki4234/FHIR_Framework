@@ -230,6 +230,7 @@ def process_data(json_file, config_file, output_file):
     print("Flattened data loaded at the following path:")
     print(output_file)
 
+#Multiprocessing 
 def process_files(args):
     json_file, config_file, output_file = args
     validate_json(json_file)
@@ -287,8 +288,4 @@ run_multiple_instances(input_files, output_files, config_files)
 
 #python MP_KB_FHIR_Flattening.py --input /workspaces/FHIR_Framework/FHIR_Framework-main/Input_data_files/Device/device.json /workspaces/FHIR_Framework/FHIR_Framework-main/Input_data_files/library/library_1.json /workspaces/FHIR_Framework/FHIR_Framework-main/Input_data_files/communication/communication.json --output /workspaces/FHIR_Framework/FHIR_Framework-main/output/out_device.csv /workspaces/FHIR_Framework/FHIR_Framework-main/output/out_library.csv /workspaces/FHIR_Framework/FHIR_Framework-main/output/out_communication.csv --config /workspaces/FHIR_Framework/FHIR_Framework-main/Config_method2/device_config.json /workspaces/FHIR_Framework/FHIR_Framework-main/Config_method2/library_config.json /workspaces/FHIR_Framework/FHIR_Framework-main/Config_method2/communication_config.json
 
-
-
-
-
-#python MP_KB_FHIR_Flattening.py --input /workspaces/FHIR_Framework/FHIR_Framework-main/Input_data_files/Device/device.json /workspaces/FHIR_Framework/FHIR_Framework-main/Input_data_files/library/library_1.json /workspaces/FHIR_Framework/FHIR_Framework-main/Input_data_files/communication/communication.json --output /workspaces/FHIR_Framework/FHIR_Framework-main/output/out_device.csv /workspaces/FHIR_Framework/FHIR_Framework-main/output/out_library.csv /workspaces/FHIR_Framework/FHIR_Framework-main/output/out_communication.csv --config /workspaces/FHIR_Framework/FHIR_Framework-main/Config_method2/device_config.json /workspaces/FHIR_Framework/FHIR_Framework-main/Config_method2/library_config.json /workspaces/FHIR_Framework/FHIR_Framework-main/Config_method2/communication_config.json
+#python MP_KB_FHIR_Flattening.py --input /workspaces/FHIR_Framework/FHIR_Framework-main/Input_data_files/observation/observation.json /workspaces/FHIR_Framework/FHIR_Framework-main/Input_data_files/Device/device.json /workspaces/FHIR_Framework/FHIR_Framework-main/Input_data_files/library/library_1.json /workspaces/FHIR_Framework/FHIR_Framework-main/Input_data_files/communication/communication.json --output /workspaces/FHIR_Framework/FHIR_Framework-main/output/out_observation.csv /workspaces/FHIR_Framework/FHIR_Framework-main/output/out_device.csv /workspaces/FHIR_Framework/FHIR_Framework-main/output/out_library.csv /workspaces/FHIR_Framework/FHIR_Framework-main/output/out_communication.csv --config /workspaces/FHIR_Framework/FHIR_Framework-main/Config_method2/observation_config.json /workspaces/FHIR_Framework/FHIR_Framework-main/Config_method2/device_config.json /workspaces/FHIR_Framework/FHIR_Framework-main/Config_method2/library_config.json /workspaces/FHIR_Framework/FHIR_Framework-main/Config_method2/communication_config.json
