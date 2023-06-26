@@ -61,7 +61,7 @@
           "match_value": "urn:iso:std:iso:11073:10101",
           "target_column": "version_value"
         },
-        "column_type": "nonarray"
+        "column_type": "array"
       }, 
       {
         "column_name": "Device_Specification",
@@ -79,7 +79,7 @@
           "match_value": "http://terminology.hl7.org/CodeSystem/ASN1ToHL7",
           "target_column": "property_valueCodeableConcept_text"
         },
-        "column_type": "Nonarray"
+        "column_type": "nonarray"
       }
     ]
   }

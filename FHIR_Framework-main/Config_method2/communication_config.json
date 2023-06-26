@@ -79,7 +79,7 @@
           "match_value": "http://www.jurisdiction.com/insurer",
           "target_column": "recipient_identifier_value"
         },
-        "column_type": "Nonarray_Type"
+        "column_type": "array"
       },
       {
         "column_name": "sender",

@@ -209,5 +209,5 @@ print(output_file_path)
 
 
 
-#python FHIR_Flattening.py --input /workspaces/FHIR_Framework/FHIR_Framework-main/Input_data_files/communication/communication.json --output /workspaces/FHIR_Framework/FHIR_Framework-main/output/output.csv --config /workspaces/FHIR_Framework/FHIR_Framework-main/Config_method2/communication_config.json
+#python MP_FHIR_Flattening.py --input /workspaces/FHIR_Framework/FHIR_Framework-main/Input_data_files/communication/communication.json --output /workspaces/FHIR_Framework/FHIR_Framework-main/output/output.csv --config /workspaces/FHIR_Framework/FHIR_Framework-main/Config_method2/communication_config.json
 #cd FHIR_Framework-main/Flatten_job

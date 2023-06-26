@@ -1,0 +1,5 @@
+,RESOURCE_TYPE,ID,manufacturer,serialNumber,modelNumber,Device_Name,Device_Type,Device_Version,Device_Specification,device_property
+0,['Device'],['and20601bpmonitor'],['A&D Medical'],['5091100966'],['UA-767PBT-C'],['AND BP UA-767PBT-C'],['MDC_MOC_VMS_MDS_SIMP: Personal Health Device'],['1.0'],['MDC_DEV_SPEC_PROFILE_BP: Blood Pressure meter'],Device is Regulated
+0,['Device'],['and20601bpmonitor'],['A&D Medical'],['5091100966'],['UA-767PBT-C'],['AND BP UA-767PBT-C'],['MDC_MOC_VMS_MDS_SIMP: Personal Health Device'],['1.0'],['MDC_DEV_SPEC_PROFILE_BP: Blood Pressure meter'],manager requested to set the time
+0,['Device'],['and20601bpmonitor'],['A&D Medical'],['5091100966'],['UA-767PBT-C'],['AND BP UA-767PBT-C'],['MDC_MOC_VMS_MDS_SIMP: Personal Health Device'],['1.0'],['MDC_DEV_SPEC_PROFILE_BP: Blood Pressure meter'],real time clock supported
+0,['Device'],['and20601bpmonitor'],['A&D Medical'],['5091100966'],['UA-767PBT-C'],['AND BP UA-767PBT-C'],['MDC_MOC_VMS_MDS_SIMP: Personal Health Device'],['1.0'],['MDC_DEV_SPEC_PROFILE_BP: Blood Pressure meter'],setting the time supported
