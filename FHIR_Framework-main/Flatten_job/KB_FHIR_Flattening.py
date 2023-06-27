@@ -5,7 +5,7 @@ import json
 import argparse
 import os
 import time
-
+start_time = time.time()
 
 # Error codes
 ERROR_JSON_INVALID = 1001
@@ -19,7 +19,6 @@ ERROR_DUPLICATE_COLUMN_NAMES = 2006
 ERROR_SOURCE_TARGET_COLUMNS_MISSING = 2007
 ERROR_TARGET_COLUMN_MISSING = 2008
 
-start_time = time.time()
 LIST_TYPES = (list, tuple)
 
 # Exception classes
@@ -249,6 +248,9 @@ def process_data(json_file, config_file, output_file):
     print(output_file_path)
 
 
+
+
+
 args = parse_arguments()
 if args.input == '--help':
     parser = argparse.ArgumentParser(description='Please give input in the following format')
@@ -274,6 +276,8 @@ process_data(json_file_path, config_file, output_file_path)
     
 
 
+end_time = time.time()
+execution_time = end_time - start_time
+print("Execution time:WMP ", execution_time, "seconds")
 
-
-#python MP_KB_FHIR_Flattening.py --input /workspaces/FHIR_Framework/FHIR_Framework-main/Input_data_files/communication/communication.json --output /workspaces/FHIR_Framework/FHIR_Framework-main/output/output.csv --config /workspaces/FHIR_Framework/FHIR_Framework-main/Config_method2/communication_config.json
+#python KB_FHIR_Flattening.py --input /workspaces/FHIR_Framework/FHIR_Framework-main/Input_data_files/org_aff/org_aff.json --output /workspaces/FHIR_Framework/FHIR_Framework-main/output/WMP.csv --config /workspaces/FHIR_Framework/FHIR_Framework-main/Config_method2/orgaff_config.json

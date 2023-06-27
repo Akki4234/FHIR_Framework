@@ -6,8 +6,12 @@ import argparse
 import os
 import time
 from multiprocessing import Pool
+start_time = time.time()
 
-# Error codes
+
+
+
+# Error codes (unchanged)
 ERROR_JSON_INVALID = 1001
 ERROR_JSON_TOO_LARGE = 1002
 ERROR_CONFIG_INVALID = 2001
@@ -19,7 +23,7 @@ ERROR_DUPLICATE_COLUMN_NAMES = 2006
 ERROR_SOURCE_TARGET_COLUMNS_MISSING = 2007
 ERROR_TARGET_COLUMN_MISSING = 2008
 
-start_time = time.time()
+
 LIST_TYPES = (list, tuple)
 
 # Exception classes
@@ -230,7 +234,6 @@ def process_data(json_file, config_file, output_file):
     print("Flattened data loaded at the following path:")
     print(output_file)
 
-#Multiprocessing 
 def process_files(args):
     json_file, config_file, output_file = args
     validate_json(json_file)
@@ -239,9 +242,9 @@ def process_files(args):
 
 def parse_arguments():
     parser = argparse.ArgumentParser(description='Please give input in the following format')
-    parser.add_argument('--input', nargs='+', help='Input paths to the input files')
-    parser.add_argument('--output', nargs='+', help='Output paths to the output files')
-    parser.add_argument('--config', nargs='+', help='Config paths to the config files')
+    parser.add_argument('--input', help='Input path to the input folder')
+    parser.add_argument('--output', help='Output path to the output folder')
+    parser.add_argument('--config', help='Config path to the config file')
     return parser.parse_args()
 
 def handle_exception(func):
@@ -255,13 +258,17 @@ def handle_exception(func):
     return wrapper
 
 @handle_exception
-def run_multiple_instances(input_files, output_files, config_files):
+def run_multiple_instances(input_folder, output_folder, config_file):
+    input_files = [os.path.join(input_folder, file) for file in os.listdir(input_folder) if file.endswith('.json')]
+    output_files = [os.path.join(output_folder, file) for file in os.listdir(input_folder) if file.endswith('.json')]
+    config_files = [config_file] * len(input_files)
+
     # Ensure the lengths of input, output, and config files are the same
     if len(input_files) != len(output_files) or len(input_files) != len(config_files):
         raise ExecutionError(0, "The number of input, output, and config files must be the same")
 
     # Create a list of argument tuples for each instance
-    args_list = [(input_file, config_file, output_file) for input_file, config_file, output_file in zip(input_files, config_files, output_files)]
+    args_list = [(input_file, config_file, output_file) for input_file, output_file, config_file in zip(input_files, output_files, config_files)]
 
     # Process the files using multiprocessing
     with Pool() as pool:
@@ -272,20 +279,22 @@ if args.input == '--help':
     parser = argparse.ArgumentParser(description='Please give input in the following format')
     parser.print_help()
 else:
-    input_files = args.input
-    config_files = args.config
-    output_files = args.output
+    input_folder = args.input
+    config_file = args.config
+    output_folder = args.output
 
-for path in input_files + config_files + [output_file.rsplit('/', 1)[0] for output_file in output_files]:
+for path in [input_folder, config_file, output_folder]:
     validate_path(path)
 
-run_multiple_instances(input_files, output_files, config_files)
+run_multiple_instances(input_folder, output_folder, config_file)
 
 
-#python MP_KB_FHIR_Flattening.py --input /workspaces/FHIR_Framework/FHIR_Framework-main/Input_data_files/communication/communication.json --output /workspaces/FHIR_Framework/FHIR_Framework-main/output/out_communication.csv --config /workspaces/FHIR_Framework/FHIR_Framework-main/Config_method2/communication_config.json
 
-#python MP_KB_FHIR_Flattening.py --input /workspaces/FHIR_Framework/FHIR_Framework-main/Input_data_files/communication/communication.json /workspaces/FHIR_Framework/FHIR_Framework-main/Input_data_files/Device/device.json --output /workspaces/FHIR_Framework/FHIR_Framework-main/output/out_communication.csv /workspaces/FHIR_Framework/FHIR_Framework-main/output/out_device.csv --config /workspaces/FHIR_Framework/FHIR_Framework-main/Config_method2/communication_config.json /workspaces/FHIR_Framework/FHIR_Framework-main/Config_method2/device_config.json
 
-#python MP_KB_FHIR_Flattening.py --input /workspaces/FHIR_Framework/FHIR_Framework-main/Input_data_files/Device/device.json /workspaces/FHIR_Framework/FHIR_Framework-main/Input_data_files/library/library_1.json /workspaces/FHIR_Framework/FHIR_Framework-main/Input_data_files/communication/communication.json --output /workspaces/FHIR_Framework/FHIR_Framework-main/output/out_device.csv /workspaces/FHIR_Framework/FHIR_Framework-main/output/out_library.csv /workspaces/FHIR_Framework/FHIR_Framework-main/output/out_communication.csv --config /workspaces/FHIR_Framework/FHIR_Framework-main/Config_method2/device_config.json /workspaces/FHIR_Framework/FHIR_Framework-main/Config_method2/library_config.json /workspaces/FHIR_Framework/FHIR_Framework-main/Config_method2/communication_config.json
+end_time = time.time()
+execution_time = end_time - start_time
+print("Execution time-MP:", execution_time, "seconds")
 
-#python MP_KB_FHIR_Flattening.py --input /workspaces/FHIR_Framework/FHIR_Framework-main/Input_data_files/observation/observation.json /workspaces/FHIR_Framework/FHIR_Framework-main/Input_data_files/Device/device.json /workspaces/FHIR_Framework/FHIR_Framework-main/Input_data_files/library/library_1.json /workspaces/FHIR_Framework/FHIR_Framework-main/Input_data_files/communication/communication.json --output /workspaces/FHIR_Framework/FHIR_Framework-main/output/out_observation.csv /workspaces/FHIR_Framework/FHIR_Framework-main/output/out_device.csv /workspaces/FHIR_Framework/FHIR_Framework-main/output/out_library.csv /workspaces/FHIR_Framework/FHIR_Framework-main/output/out_communication.csv --config /workspaces/FHIR_Framework/FHIR_Framework-main/Config_method2/observation_config.json /workspaces/FHIR_Framework/FHIR_Framework-main/Config_method2/device_config.json /workspaces/FHIR_Framework/FHIR_Framework-main/Config_method2/library_config.json /workspaces/FHIR_Framework/FHIR_Framework-main/Config_method2/communication_config.json
+
+#cd FHIR_Framework-main/Flatten_job
+#python MP_KB_FHIR_Flattening.py --input /workspaces/FHIR_Framework/FHIR_Framework-main/Input_data_files/org_aff --output /workspaces/FHIR_Framework/FHIR_Framework-main/output --config /workspaces/FHIR_Framework/FHIR_Framework-main/Config_method2/orgaff_config.json

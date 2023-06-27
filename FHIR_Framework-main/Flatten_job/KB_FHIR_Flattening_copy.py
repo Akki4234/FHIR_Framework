@@ -4,10 +4,11 @@ import pandas as pd
 import json
 import argparse
 import os
+import uuid
 import time
-from multiprocessing import Pool
+start_time = time.time()
 
-# Error codes (unchanged)
+# Error codes
 ERROR_JSON_INVALID = 1001
 ERROR_JSON_TOO_LARGE = 1002
 ERROR_CONFIG_INVALID = 2001
@@ -19,7 +20,6 @@ ERROR_DUPLICATE_COLUMN_NAMES = 2006
 ERROR_SOURCE_TARGET_COLUMNS_MISSING = 2007
 ERROR_TARGET_COLUMN_MISSING = 2008
 
-start_time = time.time()
 LIST_TYPES = (list, tuple)
 
 # Exception classes
@@ -59,6 +59,7 @@ class TargetColumnMissingException(ExecutionError):
     def __init__(self, column_name):
         message = f"Target column is missing for column name: {column_name}"
         super().__init__(ERROR_TARGET_COLUMN_MISSING, message)
+
 
 def validate_path(path):
     if not os.path.exists(path):
@@ -111,6 +112,25 @@ def convert_json_to_small_json(json_file):
 
     return small_json_data
 
+# Inputs and path validations
+def parse_arguments():
+    parser = argparse.ArgumentParser(description='Please give input in the following format')
+    parser.add_argument('--input', help='Input path to the input file')
+    parser.add_argument('--output', help='Output path to the output file')
+    parser.add_argument('--config', help='Config path to the config file')
+    return parser.parse_args()
+
+def handle_exception(func):
+    def wrapper(*args, **kwargs):
+        try:
+            return func(*args, **kwargs)
+        except ExecutionError as e:
+            print(f"Execution failed...")
+            print(f"Error Code: {e.code}, Message: {e.message}")
+            exit()
+    return wrapper
+
+@handle_exception
 def validate_json(json_file):
     with open(json_file) as json_file:
         try:
@@ -120,6 +140,7 @@ def validate_json(json_file):
         except MemoryError:
             raise JSONTooLargeException("Input JSON is too large to load.")
 
+@handle_exception
 def validate_config(config_file):
     with open(config_file) as config_file1:
         try:
@@ -147,7 +168,9 @@ def validate_config(config_file):
         if duplicate_column_names:
             raise DuplicateColumnNamesException(duplicate_column_names)
 
+@handle_exception
 def process_data(json_file, config_file, output_file):
+
     with open(config_file) as config_file1:
         config_data = json.load(config_file1)
     
@@ -159,7 +182,7 @@ def process_data(json_file, config_file, output_file):
         df2 = pd.DataFrame(list(Flatten_Explode(value)))
         df = pd.concat([df, df2], axis=1)
     
-    
+
     aries = {}
     mapping = config_data['column_mapping']
     cartesian=[]
@@ -219,70 +242,49 @@ def process_data(json_file, config_file, output_file):
     for colname in cartesian:
         result_df = result_df.explode(colname)
 
+    random_file_name = str(uuid.uuid4())
+    file_path = os.path.join(output_file_path, f"{random_file_name}.csv")
 
+    result_df.to_csv(file_path, index=False)
 
-
-    # Rest of the processing logic...
-
-    # Save the result to the output file
-    result_df.to_csv(output_file)
     print("Execution successful! Data flattening and mapping completed...")
     print("Flattened data loaded at the following path:")
-    print(output_file)
+    print(output_file_path)
 
-def process_files(args):
-    json_file, config_file, output_file = args
-    validate_json(json_file)
-    validate_config(config_file)
-    process_data(json_file, config_file, output_file)
 
-def parse_arguments():
-    parser = argparse.ArgumentParser(description='Please give input in the following format')
-    parser.add_argument('--input', help='Input path to the input folder')
-    parser.add_argument('--output', help='Output path to the output folder')
-    parser.add_argument('--config', help='Config path to the config file')
-    return parser.parse_args()
 
-def handle_exception(func):
-    def wrapper(*args, **kwargs):
-        try:
-            return func(*args, **kwargs)
-        except ExecutionError as e:
-            print(f"Execution failed...")
-            print(f"Error Code: {e.code}, Message: {e.message}")
-            exit()
-    return wrapper
 
-@handle_exception
-def run_multiple_instances(input_folder, output_folder, config_file):
-    input_files = [os.path.join(input_folder, file) for file in os.listdir(input_folder) if file.endswith('.json')]
-    output_files = [os.path.join(output_folder, file) for file in os.listdir(input_folder) if file.endswith('.json')]
-    config_files = [config_file] * len(input_files)
-
-    # Ensure the lengths of input, output, and config files are the same
-    if len(input_files) != len(output_files) or len(input_files) != len(config_files):
-        raise ExecutionError(0, "The number of input, output, and config files must be the same")
-
-    # Create a list of argument tuples for each instance
-    args_list = [(input_file, config_file, output_file) for input_file, output_file, config_file in zip(input_files, output_files, config_files)]
-
-    # Process the files using multiprocessing
-    with Pool() as pool:
-        pool.map(process_files, args_list)
 
 args = parse_arguments()
 if args.input == '--help':
     parser = argparse.ArgumentParser(description='Please give input in the following format')
     parser.print_help()
 else:
-    input_folder = args.input
+    json_file_path = args.input
     config_file = args.config
-    output_folder = args.output
+    output_file_path = args.output
 
-for path in [input_folder, config_file, output_folder]:
+paths = [json_file_path, config_file, output_file_path]
+for path in paths:
     validate_path(path)
 
-run_multiple_instances(input_folder, output_folder, config_file)
+validate_json(json_file_path)
+validate_config(config_file)
+process_data(json_file_path, config_file, output_file_path)
 
 
-#python new_MP_KB_FHIR_Flattening.py --input /workspaces/FHIR_Framework/FHIR_Framework-main/Input_data_files/Device --output /workspaces/FHIR_Framework/FHIR_Framework-main/output --config /workspaces/FHIR_Framework/FHIR_Framework-main/Config_method2/device_config.json
+
+
+
+
+    
+
+
+end_time = time.time()
+execution_time = end_time - start_time
+print("Execution time:WMP ", execution_time, "seconds")
+
+#python KB_FHIR_Flattening_copy.py --input /workspaces/FHIR_Framework/FHIR_Framework-main/Input_data_files/org_aff/org_aff.json --output /workspaces/FHIR_Framework/FHIR_Framework-main/output --config /workspaces/FHIR_Framework/FHIR_Framework-main/Config_method2/orgaff_config.json
+
+
+

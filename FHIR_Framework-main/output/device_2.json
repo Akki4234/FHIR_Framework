@@ -1,4 +1,0 @@
-,RESOURCE_TYPE,ID,manufacturer,serialNumber,modelNumber,Device_Name,Device_Type,Device_Version,Device_Specification,device_property
-0,['Device'],['ANDThermometer'],['A&D Medical'],['5160800011'],['UT-201BLE-A'],['A&D_UT201BLEA_321226'],['MDC_MOC_VMS_MDS_SIMP: Personal Health Device'],"['0.00', '4.1', 'HTP009_137']",,Device is Regulated
-0,['Device'],['ANDThermometer'],['A&D Medical'],['5160800011'],['UT-201BLE-A'],['A&D_UT201BLEA_321226'],['MDC_MOC_VMS_MDS_SIMP: Personal Health Device'],"['0.00', '4.1', 'HTP009_137']",,real time clock supported
-0,['Device'],['ANDThermometer'],['A&D Medical'],['5160800011'],['UT-201BLE-A'],['A&D_UT201BLEA_321226'],['MDC_MOC_VMS_MDS_SIMP: Personal Health Device'],"['0.00', '4.1', 'HTP009_137']",,setting the time supported
