@@ -1,2 +1,0 @@
-,id,resourceType,ACTIVE_STATUS,category,observation,effectiveDateTime,interpretation,bodySite,component,Reason
-0,['blood-pressure-dar'],['Observation'],['final'],['Vital Signs'],['Blood pressure panel with all children optional'],['2012-09-17'],['low'],['Right arm'],"['Diastolic blood pressure', 'Systolic blood pressure']",['Not Performed']
