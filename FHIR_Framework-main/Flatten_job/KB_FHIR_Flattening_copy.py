@@ -6,7 +6,9 @@ import argparse
 import os
 import uuid
 import time
-start_time = time.time()
+import multiprocessing
+
+
 
 # Error codes
 ERROR_JSON_INVALID = 1001
@@ -243,48 +245,61 @@ def process_data(json_file, config_file, output_file):
         result_df = result_df.explode(colname)
 
     random_file_name = str(uuid.uuid4())
-    file_path = os.path.join(output_file_path, f"{random_file_name}.csv")
+    file_path = os.path.join(output_folder_path, f"{random_file_name}.csv")
 
     result_df.to_csv(file_path, index=False)
 
-    print("Execution successful! Data flattening and mapping completed...")
-    print("Flattened data loaded at the following path:")
-    print(output_file_path)
-
-
-
-
-
-args = parse_arguments()
-if args.input == '--help':
-    parser = argparse.ArgumentParser(description='Please give input in the following format')
-    parser.print_help()
-else:
-    json_file_path = args.input
-    config_file = args.config
-    output_file_path = args.output
-
-paths = [json_file_path, config_file, output_file_path]
-for path in paths:
-    validate_path(path)
-
-validate_json(json_file_path)
-validate_config(config_file)
-process_data(json_file_path, config_file, output_file_path)
-
-
-
-
-
-
+    # print("Execution successful! Data flattening and mapping completed...")
+    # print("Flattened data loaded at the following path:")
+    # print(output_folder_path)
+    end_time = time.time()
+    execution_time = end_time - start_time
+    print("Execution time:MP ", execution_time, "seconds")
     
 
 
-end_time = time.time()
-execution_time = end_time - start_time
-print("Execution time:WMP ", execution_time, "seconds")
-
-#python KB_FHIR_Flattening_copy.py --input /workspaces/FHIR_Framework/FHIR_Framework-main/Input_data_files/org_aff/org_aff.json --output /workspaces/FHIR_Framework/FHIR_Framework-main/output --config /workspaces/FHIR_Framework/FHIR_Framework-main/Config_method2/orgaff_config.json
 
 
 
+def process_file(args):
+    json_file, config_file, output_folder_path = args
+    validate_json(json_file)
+    process_data(json_file, config_file, output_folder_path)
+
+
+if __name__ == '__main__':
+
+    start_time = time.time()
+    args = parse_arguments()
+    if args.input == '--help':
+        parser = argparse.ArgumentParser(description='Please give input in the following format')
+        parser.print_help()
+    else:
+        input_folder_path = args.input
+        config_file = args.config
+        output_folder_path = args.output
+
+    paths = [input_folder_path, config_file, output_folder_path]
+    for path in paths:
+        validate_path(path)
+
+    validate_config(config_file)
+
+    json_files = [os.path.join(input_folder_path, file) for file in os.listdir(input_folder_path) if file.endswith('.json')]
+    pros=[]
+    for json_file in json_files:
+        arguments = [json_file, config_file, output_folder_path]
+        p=multiprocessing.Process(target=process_data, args=arguments)
+        p.start()
+        pros.append(p)
+        
+    
+
+
+
+ 
+
+
+
+#cd FHIR_Framework-main/Flatten_job
+#python KB_FHIR_Flattening_copy.py --input /workspaces/FHIR_Framework/FHIR_Framework-main/Input_data_files/org_aff --output /workspaces/FHIR_Framework/FHIR_Framework-main/output --config /workspaces/FHIR_Framework/FHIR_Framework-main/Config_method2/orgaff_config.json
