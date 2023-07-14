@@ -1,50 +1,88 @@
-import argparse
+# import os
+# import shutil
+
+# input_folder_path = '/workspaces/FHIR_Framework/FHIR_Framework-main/Input_data_files/org_aff'  # Replace with the actual input folder path
+# file_name = 'org_aff.json'  # Replace with the actual file name (including the extension)
+
+# # Read the file from the input location
+# file_path = os.path.join(input_folder_path, file_name)
+# with open(file_path, 'rb') as file:
+#     file_content = file.read()
+
+# # Create copies of the file with incremented numbers
+# output_folder_path = input_folder_path  # Output folder is the same as the input folder
+# num_copies = 700 # Number of copies to create
+
+# for i in range(num_copies):
+#     new_file_name = f'{"org_aff"}_{i+1}.json'
+#     new_file_path = os.path.join(output_folder_path, new_file_name)
+#     with open(new_file_path, 'wb') as new_file:
+#         new_file.write(file_content)
+
+#     print(f'Copied file: {new_file_path}')
+
+# python Help.py
+# _________________________________________________________________________________
+
 import boto3
+import os
 
-def parse_arguments():
-    parser = argparse.ArgumentParser(description='Your program description here')
-
-    # Add your program's arguments
-    parser.add_argument('--input', help='S3 path to the input file')
-    parser.add_argument('--output', help='S3 path to the output file')
-    parser.add_argument('--config', help='S3 path to the config file')
-
-    return parser.parse_args()
-
-def read_file_from_s3(s3_path):
-    print(s3_path)
+# AWS credentials and region configuration
+aws_access_key_id = 'AKIAV477VRBHPFUPJDOQ'
+aws_secret_access_key = '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'
+aws_region = 'us-east-1'
 
 
-    s3 = boto3.client('s3')
-    bucket, key = s3_path.split('/', 3)[2:]
-    response = s3.get_object(Bucket=bucket, Key=key)
-    file_content = response['Body'].read().decode('utf-8')
-    return file_content
+# S3 bucket configuration
+bucket_name = 'fhirinput'
 
-def write_file_to_s3(s3_path, file_content):
-    s3 = boto3.client('s3')
-    bucket, key = s3_path.split('/', 3)[2:]
-    s3.put_object(Body=file_content.encode('utf-8'), Bucket=bucket, Key=key)
+# Input folder path containing the files
+input_folder_path = '/workspaces/FHIR_Framework/FHIR_Framework-main/Input_data_files/org_aff'  # Replace with the actual input folder path
+s
+# Create an S3 clients
+s3 = boto3.client('s3', aws_access_key_id=aws_access_key_id,
+                  aws_secret_access_key=aws_secret_access_key,
+                  region_name=aws_region)
 
-def main():
-    
+# Get a list of files in the input folder
+file_names = os.listdir(input_folder_path)
 
-    # Your program logic here
-    # Use args.input, args.output, and args.config to access the provided S3 paths
+# Upload each file to S3
+for file_name in file_names:
+    file_path = os.path.join(input_folder_path, file_name)
+    s3.upload_file(file_path, bucket_name, file_name)
 
-    # Example:
-    if args.input:
-        input_file_content = read_file_from_s3(args.input)
-        print(f"Input file content:\n{input_file_content}")
+    print(f'Uploaded file: {file_name} to bucket: {bucket_name}')
+# _________________________________________________________________________________
 
-    if args.output:
-        # Your main logic here
-        output_file_content = "This is the output content"  # Replace with your actual output content
-        
-        # Write the output file to S3
-        write_file_to_s3(args.output, output_file_content)
-        print(f"Output file written to: {args.output}")
+# import boto3
 
-    if args.config:
-        config_file_content = read_file_from_s3(args.config)
-        print(f"Config file content:\n{config_file_content}")
+# def copy_json_files(source_bucket, destination_bucket, destination_folder, access_key, secret_key, region):
+#     s3 = boto3.client(
+#         's3',
+#         aws_access_key_id=access_key,
+#         aws_secret_access_key=secret_key,
+#         region_name=region
+#     )
+
+#     response = s3.list_objects_v2(Bucket=source_bucket)
+#     if 'Contents' in response:
+#         for obj in response['Contents']:
+#             key = obj['Key']
+#             if key.endswith('.json'):
+#                 destination_key = f"{destination_folder}/{key}"
+#                 copy_source = {'Bucket': source_bucket, 'Key': key}
+#                 s3.copy_object(CopySource=copy_source, Bucket=destination_bucket, Key=destination_key)
+#                 print(f"Copied {key} to {destination_bucket}/{destination_key}")
+
+# # Specify the source and destination bucket names, destination folder, access key, secret key, and region
+# source_bucket = 'fhirconfig'
+# destination_bucket = 'fhirinput'
+# destination_folder = 'arg_aff'
+# access_key = 'AKIAV477VRBHPFUPJDOQ'
+# secret_key = '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'
+# region = 'us-east-1'
+
+# # Copy the JSON files from the source bucket to the destination bucket under the specified folder
+# copy_json_files(source_bucket, destination_bucket, destination_folder, access_key, secret_key, region)
+

@@ -1,0 +1,360 @@
+{
+    "resourceType": "OrganizationAffiliation",
+    "id": "710-91a798f5-5b42-40dc-866c-6b69dbdfa06a-ProvOrganAffiliat",
+    "meta": {
+      "versionId": "15",
+      "lastUpdated": "2023-03-23T22:31:36.876-05:00",
+      "profile": [
+        "http://bpd.bcbs.com/StructureDefinition/bpd-orgaffiliation-groupfacility-plan-submission"
+      ]
+    },
+    "extension": [
+      {
+        "url": "http://bpd.bcbs.com/StructureDefinition/networkreference",
+        "valueReference": {
+          "reference": "Organization/710-bd510c7a-403b-40fa-89d1-5b0593fd9144-Network"
+        }
+      },
+      {
+        "url": "http://bpd.bcbs.com/StructureDefinition/networkreference",
+        "valueReference": {
+          "reference": "Organization/710-24fd99f5-cd78-482d-aa32-47695deb78d6-Network"
+        }
+        
+      },
+      {
+        "url": "http://bpd.bcbs.com/StructureDefinition/networkreference",
+        "valueReference": {
+          "reference": "Organization/710-1dab0530-bf46-4663-978e-48c25b0ee437-Network"
+        }
+      },
+      {
+        "url": "http://bpd.bcbs.com/StructureDefinition/networkreference",
+        "valueReference": {
+          "reference": "Organization/710-ac1891a8-201a-499a-b997-77b1072f7525-Network"
+        }
+        
+      },
+      {
+        "url": "http://bpd.bcbs.com/StructureDefinition/licenseereference",
+        "valueReference": {
+          "reference": "Organization/710-22ded8be-b827-4afb-a785-ecc5f8581071-Licensee"
+        }
+      },
+      {
+        "url": "http://bpd.bcbs.com/StructureDefinition/providerdisplay",
+        
+        "extension": [
+          {
+            "url": "displayIndicatorProvider",
+            "valueBoolean": "true"
+          }
+        ]
+      },
+      {
+        "url": "http://bpd.bcbs.com/StructureDefinition/provcontract",
+        "valueBoolean": "true"
+      }
+    ],
+    "period": {
+      "start": "2023-01-01"
+    },
+    "participatingOrganization": {
+      "reference": "Organization/710-9ecec622-d786-496e-99df-c38821459d85-ProviderOrganiz"
+    },
+    "code": [
+      {
+        "coding": [
+          {
+            "system": "http://bpd.bcbs.com/CodeSystem/BCBSProviderTypeCS",
+            "code": "BM",
+            "display": "Clinic or Provider Group"
+          }
+        ]
+      },
+      {
+        "coding": [
+          {
+            "system": "http://bpd.bcbs.com/CodeSystem/BCBSProviderEntityTypeCS",
+            "code": "2",
+            "display": "Provider Group"
+          }
+        ]
+      }
+    ],
+    "specialty": [
+      {
+        "coding": [
+          {
+            "system": "http://nucc.org/provider-taxonomy",
+            "code": "193200000X",
+            "display": "Multispecialty Group/Clinic"
+          }
+        ]
+      }
+    ],
+    "location": [
+      
+      
+      {
+        "reference": "Location/710-61b8fb5a-eb4a-47ca-a177-a1290bca59ff-ProviderLocation"
+      },
+      {
+        "reference": "Location/710-3152442a-e9d5-46ad-8de8-e1783f28a9f9-ProviderLocation"
+      },
+      {
+        "reference": "Location/710-c4fdaca0-a9e7-45c4-9eac-1438e7b1c21c-ProviderLocation"
+      },
+      {
+        "reference": "Location/710-862551c6-6cc1-4027-a8cb-fe74fcfdfaa4-ProviderLocation"
+      },
+      {
+        "reference": "Location/710-8b8cf3ec-6196-4c1b-8ce8-95c07d7aae0c-ProviderLocation"
+      },
+      {
+        "reference": "Location/710-e5bccfff-8bba-422e-9cfc-bfde2ea4d566-ProviderLocation"
+      },
+      {
+        "reference": "Location/710-752e78b0-d9d8-4e1e-84f7-0fc739e77925-ProviderLocation"
+      },
+      {
+        "reference": "Location/710-0170f8a8-9214-4dc6-9a0b-1eefc34c929c-ProviderLocation"
+      },
+      {
+        "reference": "Location/710-de4a0c5a-7c51-4199-8d8c-0c60bfb11045-ProviderLocation"
+      },
+      {
+        "reference": "Location/710-7305c07a-6ab8-4dcb-9e2a-c7b09d0b3b48-ProviderLocation"
+      },
+      {
+        "reference": "Location/710-caba21b5-4611-4eed-b61a-eb23b7f04522-ProviderLocation"
+      },
+      {
+        "reference": "Location/710-d226e65e-666d-4343-8547-e339e4b6c104-ProviderLocation"
+      },
+      {
+        "reference": "Location/710-119d657b-c14d-4170-8cf3-47e20fb38d71-ProviderLocation"
+      },
+      {
+        "reference": "Location/710-dbcd132c-3a4b-4b51-bbc3-0343c481a442-ProviderLocation"
+      },
+      {
+        "reference": "Location/710-6aed4671-e362-41dd-95a3-c413a4c866c1-ProviderLocation"
+      },
+      {
+        "reference": "Location/710-e2933f19-545b-498d-8c69-3ddf5569a640-ProviderLocation"
+      },
+      {
+        "reference": "Location/710-454010ee-99a8-4e48-9552-0d4c21423c84-ProviderLocation"
+      },
+      {
+        "reference": "Location/710-04c6ee45-4cdf-46b2-a402-a0b0a3095cef-ProviderLocation"
+      },
+      {
+        "reference": "Location/710-7d138404-a6cf-4920-9b3d-0a4776942661-ProviderLocation"
+      },
+      {
+        "reference": "Location/710-14be9c52-3709-4318-a508-524450b8cefa-ProviderLocation"
+      },
+      {
+        "reference": "Location/710-6aa412b2-4d53-4086-83c6-8ba8bf67d963-ProviderLocation"
+      },
+      {
+        "reference": "Location/710-0359abaf-7ef5-410a-8391-62843877fef8-ProviderLocation"
+      },
+      {
+        "reference": "Location/710-df505b6e-21c6-4872-bccc-bd4ec80be744-ProviderLocation"
+      },
+      {
+        "reference": "Location/710-b2b6ae2d-4ca4-4e8e-92e2-fb1c0904b784-ProviderLocation"
+      },
+      {
+        "reference": "Location/710-504d3e8f-3faf-4ff7-9ee7-839c565134ae-ProviderLocation"
+      },
+      {
+        "reference": "Location/710-df8b483e-50e9-41e8-b9d3-05b3d6982ee3-ProviderLocation"
+      },
+      {
+        "reference": "Location/710-a0bfcb97-9f22-4871-bc3a-55a8e40b034d-ProviderLocation"
+      },
+      {
+        "reference": "Location/710-be00b4e5-5a56-4ab5-be9c-5fece74d2028-ProviderLocation"
+      },
+      {
+        "reference": "Location/710-cbb6866d-b26e-4943-a4ae-f5a2de205f40-ProviderLocation"
+      },
+      {
+        "reference": "Location/710-257cff11-ee3e-4b72-b1e8-950ea250c578-ProviderLocation"
+      },
+      {
+        "reference": "Location/710-4dc97b3c-853f-42fa-95f5-40e1a853dc37-ProviderLocation"
+      },
+      {
+        "reference": "Location/710-496f8ff7-4f9f-4054-877a-9f1b18344e54-ProviderLocation"
+      },
+      {
+        "reference": "Location/710-a3af8192-379e-4312-a2ab-b56e2ec2c9b7-ProviderLocation"
+      },
+      {
+        "reference": "Location/710-b75a11cb-7430-4050-af2f-12e5700f4f90-ProviderLocation"
+      },
+      {
+        "reference": "Location/710-055be09b-6c7f-4393-bff6-7168268b8834-ProviderLocation"
+      },
+      {
+        "reference": "Location/710-3fb9483f-e520-430d-9c09-55266092bdee-ProviderLocation"
+      },
+      {
+        "reference": "Location/710-674705a7-c009-41cd-b680-856b1849de2c-ProviderLocation"
+      },
+      {
+        "reference": "Location/710-3c871e4a-fddb-46b6-9899-b74aa22b6e5f-ProviderLocation"
+      },
+      {
+        "reference": "Location/710-99f1d0b7-d97e-4f5f-a622-d491c06d0474-ProviderLocation"
+      },
+      {
+        "reference": "Location/710-bbce6166-1a89-4129-8b3b-73463d0d6d3f-ProviderLocation"
+      },
+      {
+        "reference": "Location/710-e639691a-4a54-4e1a-b028-41818ce706f8-ProviderLocation"
+      },
+      {
+        "reference": "Location/710-e251b0fb-3dbf-44a7-9caf-9003f5f23324-ProviderLocation"
+      },
+      {
+        "reference": "Location/710-aaca0c13-7ab1-4885-88e7-d9b741e591eb-ProviderLocation"
+      },
+      {
+        "reference": "Location/710-024a114f-d238-4985-a76e-53eef1e4974c-ProviderLocation"
+      },
+      {
+        "reference": "Location/710-95b87e43-38a6-4de4-ab86-6dcb0180d0ed-ProviderLocation"
+      }
+    ],
+    "healthcareService": [
+      {
+        "reference": "HealthcareService/710-b268ade0-82ba-4c82-bb1e-90018a2cfefd-HealthCareService"
+      },
+      {
+        "reference": "HealthcareService/710-5559219c-e5a0-4db4-af38-7bec3d0e83e5-HealthCareService"
+      },
+      {
+        "reference": "HealthcareService/710-c9e664f8-178c-44d3-ad10-23afd1681a9c-HealthCareService"
+      },
+      {
+        "reference": "HealthcareService/710-f2fe0d30-5e8f-4a33-bb7a-dabad38c3cc8-HealthCareService"
+      },
+      {
+        "reference": "HealthcareService/710-f90ccfe1-809b-4057-a503-cde6eca6cc16-HealthCareService"
+      },
+      {
+        "reference": "HealthcareService/710-1f627dbd-80f8-4c1a-84f4-b8bb3c5f6d15-HealthCareService"
+      },
+      {
+        "reference": "HealthcareService/710-4b7eec5f-561a-4df1-b2e8-3555dffb500a-HealthCareService"
+      },
+      {
+        "reference": "HealthcareService/710-c1bd6781-33e2-4407-b7ac-423ad6b5fcb8-HealthCareService"
+      },
+      {
+        "reference": "HealthcareService/710-6b2a3f29-b082-4204-84f4-8f7be68d6622-HealthCareService"
+      },
+      {
+        "reference": "HealthcareService/710-b9c03295-f8dd-4cb7-a263-7723b78c2e47-HealthCareService"
+      },
+      {
+        "reference": "HealthcareService/710-a44754ed-49d7-4bc6-a15f-6cbddc8c5196-HealthCareService"
+      },
+      {
+        "reference": "HealthcareService/710-70247607-a958-45f9-8ec1-6736261e59be-HealthCareService"
+      },
+      {
+        "reference": "HealthcareService/710-83edc644-d1f0-478b-993a-9e623086244d-HealthCareService"
+      },
+      {
+        "reference": "HealthcareService/710-75e651fe-a489-4822-a270-be40f9f49b78-HealthCareService"
+      },
+      {
+        "reference": "HealthcareService/710-eb498c25-31f4-4733-9d24-c430bcfcb9a7-HealthCareService"
+      },
+      {
+        "reference": "HealthcareService/710-dbb52a70-0c5f-4a31-a324-131bcea95c8a-HealthCareService"
+      },
+      {
+        "reference": "HealthcareService/710-05728406-b95d-4aa0-b690-a813ab519239-HealthCareService"
+      },
+      {
+        "reference": "HealthcareService/710-023cad47-e99d-4976-9792-aa79cc41c361-HealthCareService"
+      },
+      {
+        "reference": "HealthcareService/710-de3ae1fa-80c0-4bf3-9bc9-35b08e512993-HealthCareService"
+      },
+      {
+        "reference": "HealthcareService/710-8abeb072-c525-468f-8ca6-4f638431bf9b-HealthCareService"
+      },
+      {
+        "reference": "HealthcareService/710-696a7797-c526-4fa0-b31c-56f5684caedc-HealthCareService"
+      },
+      {
+        "reference": "HealthcareService/710-94098704-0367-416f-b680-34511a63378f-HealthCareService"
+      },
+      {
+        "reference": "HealthcareService/710-a5fb324f-0ecb-4c61-beea-e76df689ec14-HealthCareService"
+      },
+      {
+        "reference": "HealthcareService/710-dfb1f87a-4235-47ee-9805-cbfecf187329-HealthCareService"
+      },
+      {
+        "reference": "HealthcareService/710-65625f68-fea2-4292-b08a-ec06db45e20c-HealthCareService"
+      },
+      {
+        "reference": "HealthcareService/710-8abeb072-c525-468f-8ca6-4f638431bf9b-HealthCareService"
+      },
+      {
+        "reference": "HealthcareService/710-696a7797-c526-4fa0-b31c-56f5684caedc-HealthCareService"
+      },
+      {
+        "reference": "HealthcareService/710-94098704-0367-416f-b680-34511a63378f-HealthCareService"
+      },
+      {
+        "reference": "HealthcareService/710-a5fb324f-0ecb-4c61-beea-e76df689ec14-HealthCareService"
+      },
+      {
+        "reference": "HealthcareService/710-dfb1f87a-4235-47ee-9805-cbfecf187329-HealthCareService"
+      },
+      {
+        "reference": "HealthcareService/710-65625f68-fea2-4292-b08a-ec06db45e20c-HealthCareService"
+      },
+      {
+        "reference": "HealthcareService/710-94098704-0367-416f-b680-34511a63378f-HealthCareService"
+      },
+      {
+        "reference": "HealthcareService/710-a5fb324f-0ecb-4c61-beea-e76df689ec14-HealthCareService"
+      },
+      {
+        "reference": "HealthcareService/710-dfb1f87a-4235-47ee-9805-cbfecf187329-HealthCareService"
+      },
+      {
+        "reference": "HealthcareService/710-65625f68-fea2-4292-b08a-ec06db45e20c-HealthCareService"
+      },
+      {
+        "reference": "HealthcareService/710-8abeb072-c525-468f-8ca6-4f638431bf9b-HealthCareService"
+      },
+      {
+        "reference": "HealthcareService/710-696a7797-c526-4fa0-b31c-56f5684caedc-HealthCareService"
+      },
+      {
+        "reference": "HealthcareService/710-94098704-0367-416f-b680-34511a63378f-HealthCareService"
+      },
+      {
+        "reference": "HealthcareService/710-a5fb324f-0ecb-4c61-beea-e76df689ec14-HealthCareService"
+      },
+      {
+        "reference": "HealthcareService/710-dfb1f87a-4235-47ee-9805-cbfecf187329-HealthCareService"
+      },
+      {
+        "reference": "HealthcareService/710-65625f68-fea2-4292-b08a-ec06db45e20c-HealthCareService"
+      }
+    ]
+  }
